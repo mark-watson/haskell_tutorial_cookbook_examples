@@ -1,0 +1,10 @@
+flags:
+  rdf4h:
+    small_base: true
+extra-package-dbs: []
+packages:
+- '.'
+extra-deps:
+- hsparql-0.2.7
+- rdf4h-1.3.6
+resolver: lts-5.0

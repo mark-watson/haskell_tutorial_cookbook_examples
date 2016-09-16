@@ -1,0 +1,13 @@
+dist
+cabal-dev
+.cabal-sandbox
+*.o
+*.hi
+*.chi
+*.chs.h
+.virtualenv
+.hsenv
+.cabal-sandbox/
+cabal.sandbox.config
+*.aes
+.stack-work

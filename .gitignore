@@ -1,0 +1,8 @@
+test.db
+.idea
+*.iml
+.stack-work
+*~
+_*
+.DS_Store
+NLPdb.hsproj
