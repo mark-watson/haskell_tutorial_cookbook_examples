@@ -18,7 +18,7 @@ main = do
   s <- getLine
   let cats = bestCategories (splitWords s); 
       bestCat = if length cats > 0 then fst (cats !! 0) else ""; 
-      sum = summarize_s s;
+      sum = summarizeS s;
       spwkc = splitWordsKeepCase s;
       people = encode $ showJSON $ peopleNames spwkc;
       countries = encode $ showJSON $ countryNames spwkc;

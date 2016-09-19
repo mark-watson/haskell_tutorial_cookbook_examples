@@ -133,7 +133,7 @@ postHomeR = do
     setSession "universityNames" $ T.pack $ (show $ universityNames $ splitWordsKeepCase $ cleanText $ T.unpack name)
     setSession "summary" $ T.pack $ (show $ summarize $ cleanText $ T.unpack name)
     --setSession "calais"  $ T.pack calais
-    setSession "summary_s" $ T.pack $ (show $ summarize_s $ cleanText $ T.unpack name)
+    setSession "summary_s" $ T.pack $ (show $ summarizeS $ cleanText $ T.unpack name)
     setSession "the_text" name
     redirectUltDest HomeR
 
