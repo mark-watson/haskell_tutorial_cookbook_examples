@@ -17,7 +17,7 @@ main = do
   putStrLn "Enter text (all on one line)"
   s <- getLine
   let cats = bestCategories (splitWords s); 
-      bestCat = if length cats > 0 then fst (cats !! 0) else ""; 
+      bestCat = if not (null cats) then fst (head cats) else ""; 
       sum = summarizeS s;
       spwkc = splitWordsKeepCase s;
       people = encode $ showJSON $ peopleNames spwkc;
