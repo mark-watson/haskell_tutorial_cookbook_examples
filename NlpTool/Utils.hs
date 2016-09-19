@@ -9,17 +9,17 @@ import Data.String.Utils (replace)
 cleanText s = replace "“" "\"" $ replace "”" "\"" $ replace "’" "'" s
 
 splitWords :: String -> [String]
-splitWords = words . map (\c -> if elem c ".,;:!\n\t\"" then ' ' else toLower c)
+splitWords = words . map (\c -> if c `elem` ".,;:!\n\t\"" then ' ' else toLower c)
 
 bigram :: [a] -> [[a]]
 bigram [] = []
 bigram [_] = []
 bigram xs = take 2 xs : bigram (tail xs)
 
-bigram_s xs = [ (a !! 0) ++ " " ++ (a !! 1) | a <- bigram xs] 
+bigram_s xs = [ (head a) ++ " " ++ (head a) | a <- bigram xs] 
 
 splitWordsKeepCase :: String -> [String]
-splitWordsKeepCase = words . map (\c -> if elem c ".,;:!\n\t\"" then ' ' else c)
+splitWordsKeepCase = words . map (\c -> if c `elem` ".,;:!\n\t\"" then ' ' else c)
 
 trigram :: [a] -> [[a]]
 trigram [] = []
@@ -27,7 +27,7 @@ trigram [_] = []
 trigram [_,_] = []
 trigram xs = take 3 xs : trigram (tail xs)
 
-trigram_s xs = [ (a !! 0) ++ " " ++ (a !! 1) ++ " " ++ (a !! 2) | a <- trigram xs] 
+trigram_s xs = [ (head a) ++ " " ++ (a !! 1) ++ " " ++ (a !! 2) | a <- trigram xs] 
 
  
 removeDuplicates :: Ord a => [a] -> [a]

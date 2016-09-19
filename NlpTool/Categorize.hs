@@ -37,7 +37,7 @@ cmpScore (a1, b1) (a2, b2) = compare b2 b1
                               
 bestCategoriesHelper wrds ngramMap categoryNames=
   let tg = bigram_s wrds in
-    map (\(a, b) -> (categoryNames !! a, b)) $ sortBy cmpScore $ score wrds ngramMap
+    map (first (categoryNames !!)) $ sortBy cmpScore $ score wrds ngramMap
        
 bestCategories1 wrds =
   take 3 $ bestCategoriesHelper wrds onegrams catnames1
