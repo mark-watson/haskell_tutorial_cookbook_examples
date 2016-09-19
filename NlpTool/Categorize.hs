@@ -1,4 +1,4 @@
--- Copyright 2014-2015 by Mark Watson. All rights reserved. The software and data in this project can be used under the terms of the GPL version 3 license.
+-- Copyright 2014-2016 by Mark Watson. All rights reserved. The software and data in this project can be used under the terms of the GPL version 3 license or Apache 2 license.
 
 module Categorize (bestCategories, splitWords, bigram) where
 
