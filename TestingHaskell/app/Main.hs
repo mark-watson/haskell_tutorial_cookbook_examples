@@ -1,6 +1,8 @@
 module Main where
 
-import Lib
+import MyColors
 
 main :: IO ()
-main = someFunc
+main = do
+  print $ Red < Green
+
