@@ -17,6 +17,6 @@ gameLoop gs = do
          
 main = do
   pTime <- randomRIO(1,4)
-  let gameState = GameState (pTime `mod` 5) 1
+  let gameState = GameState pTime 1
   print "Guess a number between 1 and 4"
   gameLoop gameState
