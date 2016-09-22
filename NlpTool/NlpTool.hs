@@ -1,6 +1,7 @@
 module Main where
 
--- Copyright 2014 by Mark Watson. All rights reserved. The software and data in this project can be used under the terms of the GPL version 3 license.
+-- Copyright 2014 by Mark Watson. All rights reserved.
+-- The software and data in this project can be used under the terms of the GPL version 3 license or APache 2 license.
 
 -- experiments with creating a command line tool for categorization and entity detection
 
