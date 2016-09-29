@@ -2,7 +2,7 @@
 
 module Main where
 
--- example derived from an network-simple server example
+-- example derived from an network-simple library example
 
 import Control.Monad
 import qualified Data.ByteString.Char8 as B
