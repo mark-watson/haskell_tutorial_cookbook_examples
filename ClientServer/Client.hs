@@ -3,7 +3,6 @@
 module Main where
 
 import Control.Monad
-import qualified Data.ByteString.Char8 as B
 import qualified Network.Simple.TCP as T
 
 main = do
