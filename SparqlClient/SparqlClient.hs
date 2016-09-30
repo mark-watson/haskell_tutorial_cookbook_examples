@@ -8,7 +8,6 @@ import Database.HSparql.Connection
 import Database.HSparql.QueryGenerator
 
 import Data.RDF hiding (triple)
-import Data.RDF.TriplesGraph
 import Data.Text
 
 simpleSelect :: Query SelectQuery
