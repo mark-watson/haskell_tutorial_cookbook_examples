@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 -- Example from https://github.com/robstewart57/rdf4h/blob/master/examples/ESWC.hs
 
 module Main where
@@ -17,7 +19,7 @@ eswcCommitteeMembers graph =
       memberURIs = map objectOf triples
   in map
      (\memberURI ->
-              let (LNode (PlainL (firstName::T.Text))) =
+              let (LNode (PlainL firstName)) =
                     objectOf $ head $ query graph (Just memberURI) (Just (unode "foaf:firstName")) Nothing
                   (LNode (PlainL lastName))  =
                     objectOf $ head $ query graph (Just memberURI) (Just (unode "foaf:lastName")) Nothing
@@ -30,7 +32,7 @@ main = do
     (XmlParser Nothing Nothing)
     "http://data.semanticweb.org/dumps/conferences/eswc-2015-complete.rdf"
   case result of
-    Left err -> error "Unable to parse RDF content from that URL"
+    Left (ParseFailure err) -> error ("Unable to parse RDF content from that URL: " ++ err)
     Right rdfGraph -> do
       let eswcMemberNames = eswcCommitteeMembers rdfGraph
       mapM_ (putStrLn . T.unpack) eswcMemberNames
