@@ -1,14 +1,16 @@
-flags:
+# flags:
 extra-package-dbs: []
 packages:
 - '.'
 - location:
     git: https://github.com/robstewart57/rdf4h.git
-    commit: 89d7c9eeabf0fdb4124f2cecfb725b88c2acb1d9
+    commit: 046ea63f3c8f7636251b80695bee627306b8b2d2
 - location:
     git: https://github.com/robstewart57/hsparql.git
-    commit: 9c00c51660e4dca0c4d35f4d4400d78512b8e94a
+    commit: 7f6e1952e44c5e6edf952d3493e2263ef689385b
 extra-deps:
 - hgal-2.0.0.2
+- rdf4-3.0.0
+- hsparql-0.2.9
 resolver: lts-6.11
 
