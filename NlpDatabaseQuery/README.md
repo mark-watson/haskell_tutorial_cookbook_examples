@@ -1,3 +1,5 @@
+# Placeholder: this example is not yet implemented
+
 # Database Examples
 
 ## Run first sqlite example
