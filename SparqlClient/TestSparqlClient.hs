@@ -1,5 +1,3 @@
---{-# LANGUAGE ScopedTypeVariables,OverloadedStrings #-}
-
 -- simple experiments with the excellent HSparql library
 
 module Main where
