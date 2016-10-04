@@ -16,4 +16,4 @@ executable Sprinkler
   hs-source-dirs:      .
   main-is:             Sprinkler.hs
   default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5, mtl, monad-memo >= 0.4.1, monad-bayes
+  build-depends:       base >= 4.7 && < 5, mtl, random, monad-memo >= 0.4.1, monad-bayes
