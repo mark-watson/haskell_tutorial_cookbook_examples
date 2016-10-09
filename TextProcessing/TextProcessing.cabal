@@ -31,9 +31,8 @@ executable TestAESON
   build-depends:       base >= 4.7 && < 5, aeson
 
 
-executable TestCleanText
+executable CleanText
   hs-source-dirs:      .
-  main-is:             TestCleanText.hs
+  main-is:             CleanText.hs
   default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5, split, text
-
+  build-depends:       base >= 4.7 && < 5, split, text, MissingH
