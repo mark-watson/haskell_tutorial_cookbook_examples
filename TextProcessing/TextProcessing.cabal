@@ -18,11 +18,17 @@ executable TestCSV
   default-language:    Haskell2010
   build-depends:       base >= 4.7 && < 5, csv, either-unwrap
 
-executable TestJSON
+executable TestTextJSON
   hs-source-dirs:      .
-  main-is:             TestJSON.hs
+  main-is:             TestTextJSON.hs
   default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5
+  build-depends:       base >= 4.7 && < 5, json
+
+executable TestAESON
+  hs-source-dirs:      .
+  main-is:             TestAESON.hs
+  default-language:    Haskell2010
+  build-depends:       base >= 4.7 && < 5, aeson
 
 
 executable TestCleanText
