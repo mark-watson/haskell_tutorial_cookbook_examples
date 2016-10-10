@@ -1,4 +1,4 @@
-{-# LANGUAGE OverloadedStrings #-}
+--  {-# LANGUAGE OverloadedStrings #-}
 
 module CleanText (cleanText, removeStopWords)  where
 
@@ -10,6 +10,7 @@ import Data.List.Utils (replace)
 noiseCharacters = ['[', ']', '{', '}', '\n', '\t', '&', '^', 
                    '@', '%', '$', '#', ',']
 
+substituteNoiseCharacters :: [Char] -> [Char]
 substituteNoiseCharacters =
   map (\x -> if elem x noiseCharacters then ' ' else x)
 
@@ -25,8 +26,10 @@ cleanText s =
 
 stopWords = ["a", "the", "that", "of", "an", "and"]
 
+toLower' :: [Char] -> [Char]
 toLower' s = map (\x -> if isLower x then x else (C.toLower x)) s
 
+removeStopWords :: String -> [Char]
 removeStopWords s =
   intercalate
      " " $

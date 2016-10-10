@@ -1,8 +1,9 @@
 module TestCSV where
 
-import Text.CSV (parseCSVFromFile)
+import Text.CSV (parseCSVFromFile, CSV)
 import Data.Either.Unwrap (fromRight)
 
+readCsvFile :: FilePath -> IO CSV
 readCsvFile fname = do
   c <- parseCSVFromFile fname
   return $ fromRight c
