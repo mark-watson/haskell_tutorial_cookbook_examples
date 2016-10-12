@@ -1,4 +1,4 @@
-module Parser (parse) where
+module Parser where --  (parse) where
 
 import Data.Char
 import Data.List
@@ -42,28 +42,23 @@ findTableNames tokens tableL =
   filter
     (\token -> token `elem` tokens)
     tableL
-     
-lookForTableNames :: [String] -> [String] -> [String]
-lookForTableNames arguments tableList =
-  filter (`elem` tableList) arguments
 
-doShow :: PData->[String]->M.Map String [String]->M.Map String String->[String]
-doShow chunks tableList columnMap columnSynonyms =
-  let tnames = lookForTableNames (select chunks) tableList
-      snames = lookForTableNames (conditional chunks) tableList in
-    -- TBD: correlate table names in select and conditional names list !!
-    if not (null tnames) then map (\tname -> "select * from '" ++ tname ++ "'") tnames
-    else []
+--doShow :: PData->[String]->M.Map String [String]->M.Map String String->[String]
+doShow chunks tableList columnMap columnSynonyms selTables condTables =
+  if not (null selTables) then 
+    if (null condTables) then map (\tname -> "select * from '" ++ tname ++ "'") selTables
+    else (map (\tname -> "select * from '" ++ tname ++ "' where ") selTables)
+  else []
   
-phelper :: PData -> [String] -> M.Map String [String] -> M.Map String String -> [String]
-phelper chunks tableList columnMap columnSynonyms
-   | head (select chunks) == "show" = doShow chunks tableList columnMap columnSynonyms
+--phelper :: PData -> [String] -> M.Map String [String] -> M.Map String String -> [String]
+phelper chunks tableList columnMap columnSynonyms selTables condTables
+   | head (select chunks) == "show" = doShow chunks tableList columnMap columnSynonyms selTables condTables
    | otherwise = []
        
 parse query tableL columnM synonymsM =
   let tokens = substituteSynonyms (splitOn " " (map toLower query)) synonymsM
       chunks = chunkQuery tokens
-      (selTables, condTables) = (findTableNames (select chunks),
-                                 findTableNames (conditional chunks))
+      (selTables, condTables) = (findTableNames (select chunks) tableL,
+                                 findTableNames (conditional chunks) tableL)
   in
-    phelper chunks tableL columnM synonymsM
+    phelper chunks tableL columnM synonymsM selTables condTables 
