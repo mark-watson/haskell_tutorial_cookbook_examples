@@ -42,9 +42,11 @@ main = do
   mapM_ print pText
   
   -- third example: JSON from DBPedia
-  r <- get "http://dbpedia.org/data/Los_Angeles.json"
+  r <- get "http://dbpedia.org/data/Sedona.json"
   print $ "status code: " ++ (show (r ^. responseStatus . statusCode))
   print $ "url: " ++ (show (r ^? responseBody . key "url"))
   print $ "content type: " ++ (show (r ^? responseHeader "Content-Type"))
-  --print $ "json: " ++ (show (decode (fromMaybe r ^? responseBody)))
+  --print $ "json: " ++  show (fromJust (r ^? responseBody))
+  print (fromJust (r ^? responseBody))
+  
   
