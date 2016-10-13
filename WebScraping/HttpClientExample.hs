@@ -18,6 +18,9 @@ import Data.Maybe
 import Text.XML.HXT.Core
 import Text.HandsomeSoup
 
+-- third example:
+--import Text.JSON.Generic
+
 main :: IO ()
 main = do
   -- first example:
@@ -46,7 +49,7 @@ main = do
   print $ "status code: " ++ (show (r ^. responseStatus . statusCode))
   print $ "url: " ++ (show (r ^? responseBody . key "url"))
   print $ "content type: " ++ (show (r ^? responseHeader "Content-Type"))
-  --print $ "json: " ++  show (fromJust (r ^? responseBody))
-  print (fromJust (r ^? responseBody))
+  print $ "json: " ++ show (fromJust (r ^? responseBody))
+  --print $ decode $ (fromJust (r ^? responseBody))
   
   
