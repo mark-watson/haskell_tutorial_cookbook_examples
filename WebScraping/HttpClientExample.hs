@@ -52,4 +52,4 @@ main = do
   print $ "json: " ++ show (fromJust (r ^? responseBody))
   --print $ decode $ (fromJust (r ^? responseBody))
   
-  
+  -- note: might want to add:  http://dbpedia.org/data/Sedona.n3
