@@ -3,7 +3,7 @@ version:             0.1.0.0
 synopsis:            Simple project template from stack
 description:         Please see README.md
 homepage:            http://github.com/mark-watson/HttpClient#readme
-license:             Apache2
+license:             Apache-2.0
 license-file:        LICENSE
 author:              Mark Watson
 maintainer:          markw@markwatson.com

@@ -3,7 +3,7 @@
 -- references: https://github.com/egonSchiele/HandsomeSoup
 --             http://adit.io/posts/2012-04-14-working_with_HTML_in_haskell.html
 
-module HandsomeSoupTest where
+module Main where
 
 import Text.XML.HXT.Core
 import Text.HandsomeSoup
