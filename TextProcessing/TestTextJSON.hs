@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 
-module TestTextJSON where
+module Main where
 
 import Text.JSON.Generic
           

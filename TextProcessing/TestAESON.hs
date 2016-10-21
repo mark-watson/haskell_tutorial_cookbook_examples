@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 
-module TestJSON where
+module Main where
 
 import Data.Aeson
 import GHC.Generics

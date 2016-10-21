@@ -1,4 +1,4 @@
-module TestCSV where
+module Main where
 
 import Text.CSV (parseCSVFromFile, CSV)
 import Data.Either.Unwrap (fromRight)

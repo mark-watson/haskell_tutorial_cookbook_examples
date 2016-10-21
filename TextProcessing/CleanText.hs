@@ -1,6 +1,6 @@
 --  {-# LANGUAGE OverloadedStrings #-}
 
-module CleanText (cleanText, removeStopWords)  where
+module Main where
 
 import Data.List.Split (splitOn)
 import Data.List (intercalate)
