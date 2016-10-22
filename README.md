@@ -1,10 +1,9 @@
 # Examples for "Haskell Tutorial and Cookbook" by Mark Watson
 
-Note: this repo is very much a work in progress: I am working on a Haskell book:
+This repo contains the examples for my Haskell book:
 
 [Haskell Tutorial and Cookbook](https://leanpub.com/haskell-cookbook)
 
-The book should be done by the end of December 2016, and the examples in this repo should be in good enough shape to experiment with by the end of October 2016.
 
 ## Book Table of Contents (This will change as the book is written)
 
