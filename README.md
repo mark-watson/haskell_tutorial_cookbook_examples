@@ -48,11 +48,6 @@ Tutorial on Impure Haskell Programming
   Database Access for Sqlite
   Database Access for Postgres
   Dealing With Time
-  Concurrent Example Calculating Prime Numbers
-  Concurrent Example of Using Threads for Fetching Web Pages
-  Using MVars for Shared State Between Threads
-  Parallel Neural Network
-  Tutorial on Writing Haskell Applications
   Writing CommandLine Applications in Haskell
 
 Section 2 - Cookbook
@@ -68,6 +63,7 @@ Section 2 - Cookbook
   Web Scraping
   Haskell Libraries
   Linked Data and the Semantic Web
+  Play a simple version of the Blackjack card game
   
 Appendix A - Haskell Tools Setup
 

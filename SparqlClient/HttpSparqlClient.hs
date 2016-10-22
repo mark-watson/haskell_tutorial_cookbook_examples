@@ -12,6 +12,7 @@ buildQuery :: String -> [Char]
 buildQuery sparqlString =
   "http://dbpedia.org/sparql/?query=" ++ urlEncode sparqlString
   
+main :: IO ()
 main = do
   let query = buildQuery "select * where {<http://dbpedia.org/resource/IBM> <http://dbpedia.org/ontology/abstract> ?o . FILTER langMatches(lang(?o), \"EN\")} LIMIT 100"
   res <- simpleHttp query
