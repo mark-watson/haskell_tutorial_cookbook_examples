@@ -1,8 +1,6 @@
 module DoLetExample3 where
   
-example3 = do
-  putStrLn "Enter an integer number:"
-  getLine
+example3 =  putStrLn "Enter an integer number:" >>  getLine
 
 example4 mv = do
   let number = (read mv :: Int) + 2
