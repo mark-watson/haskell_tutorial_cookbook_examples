@@ -13,18 +13,24 @@ bigram xs = take 2 xs : bigram (tail xs)
 
 containsString word substring = isInfixOf substring word
 
+
 fixTags twogramList =
   map
+  -- in the following inner function, [last,current] might be bound,
+  -- for example, to [["dog","NN"],["ran","VBD"]]
   (\[last, current] ->
     -- rule 1: DT, {VBD | VBP} --> DT, NN
-    if last !! 1 == "DT" && (current !! 1 == "VBD" || current !! 1 == "VB" || current !! 1 == "VBP")
+    if last !! 1 == "DT" && (current !! 1 == "VBD" ||
+                             current !! 1 == "VB" ||
+                             current !! 1 == "VBP")
     then "NN" 
     else
       -- rule 2: convert a noun to a number (CD) if "." appears in the word
       if (current !! 1) !! 0 == 'N' && containsString (current !! 0) "."
       then "CD"
       else
-        -- rule 3: convert a noun to a past participle if words.get(i) ends with "ed"
+        -- rule 3: convert a noun to a past participle if
+        --         words.get(i) ends with "ed"
         if (current !! 1) !! 0 == 'N' && strEndsWith (current !! 0) "ed"
         then "VBN"
         else
@@ -32,21 +38,28 @@ fixTags twogramList =
           if strEndsWith (current !! 0) "ly"
           then "RB"
           else
-            -- // rule 5: convert a common noun (NN or NNS) to a adjective if it ends with "al"
-            if strStartsWith (current !! 1) "NN" && strEndsWith (current !! 1) "al"
+            -- rule 5: convert a common noun (NN or NNS) to an
+            --         adjective if it ends with "al"
+            if strStartsWith (current !! 1) "NN" &&
+               strEndsWith (current !! 1) "al"
             then "JJ"
             else
-              -- rule 6: convert a noun to a verb if the preceeding work is "would"
-              if strStartsWith (current !! 1) "NN" && (last !! 0) == "would" -- should be case insensitive
+              -- rule 6: convert a noun to a verb if the preceeding
+              --         word is "would"
+              if strStartsWith (current !! 1) "NN" &&
+                 (last !! 0) == "would" -- should be case insensitive
               then "VB"
               else
-                -- rule 7: if a word has been categorized as a common noun and it ends with "s",
-                -- then set its type to plural common noun (NNS)
+                -- rule 7: if a word has been categorized as a
+                --         common noun and it ends with "s",
+                --         then set its type to plural common noun (NNS)
                 if strStartsWith (current !! 1) "NN" && strEndsWith (current !! 0) "s"
                 then "NNS"
                 else
-                  -- rule 8: convert a common noun to a present participle verb (i.e., a gerand)
-                  if strStartsWith (current !! 1) "NN" && strEndsWith (current !! 0) "ing"
+                  -- rule 8: convert a common noun to a present
+                  --         participle verb (i.e., a gerand)
+                  if strStartsWith (current !! 1) "NN" &&
+                     strEndsWith (current !! 0) "ing"
                   then "VBG"
                   else (current !! 1))
  twogramList
