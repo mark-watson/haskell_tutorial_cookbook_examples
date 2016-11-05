@@ -4,7 +4,7 @@ import qualified Data.Map as M
 import Data.Strings (strEndsWith, strStartsWith)
 import Data.List (isInfixOf)
 
-import LexiconData
+import LexiconData (lexicon)
 
 bigram :: [a] -> [[a]]
 bigram [] = []
