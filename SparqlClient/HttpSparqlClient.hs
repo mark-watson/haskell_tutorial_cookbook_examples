@@ -1,16 +1,19 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module HttpSparqlClient where
+module Main where
 
 import Network.HTTP.Conduit (simpleHttp)
 import Network.HTTP.Base (urlEncode)
 import Text.XML.HXT.Core
 import Text.HandsomeSoup
 import qualified Data.ByteString.Lazy.Char8 as B
+--import qualified Data.Text as T
+
+prefixUrl :: [Char]
+prefixUrl = "http://dbpedia.org/sparql/?query="
 
 buildQuery :: String -> [Char]
-buildQuery sparqlString =
-  "http://dbpedia.org/sparql/?query=" ++ urlEncode sparqlString
+buildQuery sparqlString = prefixUrl ++ urlEncode sparqlString
   
 main :: IO ()
 main = do

@@ -1,6 +1,11 @@
 # Run example
 
-        stack build --exec TestSparqlClient
+        stack ghci
+        *Main> :l HttpSparqlClient
+        *Main> main
+        *Main> :l RobsExample
+        *Main> main
+        
 
 # Using RDF4H
 

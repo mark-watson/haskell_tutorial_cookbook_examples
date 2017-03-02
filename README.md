@@ -4,6 +4,7 @@ This repo contains the examples for my Haskell book:
 
 [Haskell Tutorial and Cookbook](https://leanpub.com/haskell-cookbook)
 
+Updated 3/2/2017 to stack lts-8.3 (ghc-8.0.2)
 
 ## Book Table of Contents (This will change as the book is written)
 

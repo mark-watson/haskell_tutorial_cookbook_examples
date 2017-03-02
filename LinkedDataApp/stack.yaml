@@ -5,6 +5,7 @@ extra-package-dbs: []
 packages:
 - '.'
 extra-deps:
-- hsparql-0.2.7
-- rdf4h-1.3.6
-resolver: lts-5.0
+- hsparql-0.3.0
+- hgal-2.0.0.2
+- rdf4h-3.0.1
+resolver: lts-8.3
