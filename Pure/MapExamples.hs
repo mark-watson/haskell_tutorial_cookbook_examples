@@ -13,4 +13,4 @@ getNumericValue key aMap =
 main = do
   print $ getNumericValue "height" aTestMap
   print $ getNumericValue "age" aTestMap
-    
+

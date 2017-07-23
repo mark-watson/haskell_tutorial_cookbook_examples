@@ -13,12 +13,12 @@ testWhereBlocks a =
     where
       z = a + 2
       q = 2
-          
+
 functionWithWhere n  =
   (n + 1) * tenn
   where
     tenn = 10 * n
-    
+
 main = do
   print $ funnySummation 1 2 3 4
   let n = "Rigby"
