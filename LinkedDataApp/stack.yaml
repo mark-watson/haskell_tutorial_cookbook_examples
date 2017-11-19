@@ -8,4 +8,4 @@ extra-deps:
 - hsparql-0.3.0
 - hgal-2.0.0.2
 - rdf4h-3.0.1
-resolver: lts-8.3
+resolver: lts-9.14
