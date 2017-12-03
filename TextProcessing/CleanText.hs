@@ -14,7 +14,7 @@ substituteNoiseCharacters :: [Char] -> [Char]
 substituteNoiseCharacters =
   map (\x -> if elem x noiseCharacters then ' ' else x)
 
-cleanText s =
+cleanText s = 
   intercalate
    " " $
    filter

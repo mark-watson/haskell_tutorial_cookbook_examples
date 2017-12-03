@@ -1,6 +1,10 @@
 # Run example
 
-        stack build --exec TestSparqlClient
+        stack build --exec CleanText
+        stack build --exec TestAESON
+        stack build --exec TestCSV
+        stack build --exec TestTextJSON
+        stack build --exec TextProcessing
 
 # Using RDF4H
 
