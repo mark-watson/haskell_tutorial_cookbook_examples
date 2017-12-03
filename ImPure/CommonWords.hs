@@ -1,4 +1,4 @@
-module CommonWords where
+module Main where
 
 import Data.Set (fromList, toList, intersection)
 import Data.Char (toLower)

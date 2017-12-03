@@ -1,4 +1,4 @@
-module FmapExample where
+module Main where
 
 fileToWords fileName = do
   fileText <- readFile fileName

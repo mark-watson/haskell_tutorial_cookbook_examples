@@ -1,4 +1,4 @@
-module DoLetExample2 where
+module Main where
   
 example1 = do
   putStrLn "Enter an integer number:"
