@@ -1,4 +1,4 @@
-module GameLoop1 where
+module Main  where
 
 import Data.Time.Clock.POSIX
 

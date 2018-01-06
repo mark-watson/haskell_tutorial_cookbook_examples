@@ -3,5 +3,5 @@ extra-package-dbs: []
 packages:
 - '.'
 extra-deps:
-resolver: lts-9.14
+resolver: lts-10.2
 

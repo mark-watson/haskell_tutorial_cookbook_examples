@@ -1,4 +1,4 @@
-module GameLoop2 where
+module Main where
 
 import System.Random
 
@@ -6,7 +6,7 @@ data GameState = GameState { numberToGuess::Integer, numTries::Integer}
                    deriving (Show)
 
 gameLoop :: GameState -> IO GameState
-gameLoop gs = do      
+gameLoop gs = do
   print $ numberToGuess gs
   putStrLn "Enter a number:"
   s <- getLine
@@ -14,7 +14,7 @@ gameLoop gs = do
   if num == numberToGuess gs then
     return gs
   else gameLoop $ GameState (numberToGuess gs) ((numTries gs) + 1)
-         
+
 main = do
   pTime <- randomRIO(1,4)
   let gameState = GameState pTime 1
