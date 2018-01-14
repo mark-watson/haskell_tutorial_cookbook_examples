@@ -1,5 +1,5 @@
 module Main where
-  
+
 import System.IO
 import Data.Char (toUpper)
 
@@ -8,4 +8,4 @@ main = do
   s <- getLine
   putStrLn $ "As upper case:\t" ++ (map toUpper s)
   main
-  
+
