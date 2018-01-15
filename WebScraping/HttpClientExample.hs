@@ -21,6 +21,6 @@ main = do
   fetchURI "http://dbpedia.org/data/Sedona_Arizona.json"
   -- N3 RDF from DBPedia
   fetchURI "http://dbpedia.org/data/Sedona_Arizona.n3"
-  -- my web site
+  -- HTML from my web site
   fetchURI "http://markwatson.com"
 
