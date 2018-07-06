@@ -17,6 +17,10 @@ ACKNOWLEDGMENTS:
 
 - Brant Chee for bug reports and bug fixes to the Java version of FastTag
 
+## Running code
+
+    stack build
+    stack exec fasttag
 
 TAG DEFINITIONS:
 ----------------
