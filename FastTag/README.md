@@ -1,7 +1,5 @@
 # Haskell version of FastTag
 
-## NOTE: this code is a work in progress - don't use it yet.
-
 Copyright 2016 Mark Watson (http://markwatson.com)
 
 Licensed under LGPL3 or Apache 2 licenses: take your pick.
@@ -17,6 +15,10 @@ ACKNOWLEDGMENTS:
 
 - Brant Chee for bug reports and bug fixes to the Java version of FastTag
 
+## Running code
+
+    stack build
+    stack exec fasttag
 
 TAG DEFINITIONS:
 ----------------

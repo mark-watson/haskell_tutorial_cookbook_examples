@@ -1,5 +1,7 @@
 -- simple experiments with the excellent HSparql library
 
+{-# LANGUAGE OverloadedStrings #-}
+
 module Main where
 
 import Database.HSparql.Connection (BindingValue(Bound))
