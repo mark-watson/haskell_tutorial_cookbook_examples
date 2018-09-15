@@ -33,8 +33,10 @@ import PoliticalPartyNamesDbPedia (politicalPartyMap)
 import TradeUnionNamesDbPedia (tradeUnionMap)
 import UniversityNamesDbPedia (universityMap)
 
+isSubsetOf :: (Foldable t1, Foldable t2, Eq a) => t1 a -> t2 a -> Bool
 xs `isSubsetOf` ys = all (`elem` ys) xs
-    
+
+namesHelper :: Ord a => [a] -> M.Map a [Char] -> S.Set a -> [(a, Maybe (a, Maybe [Char]))]
 namesHelper ngrams dbPediaMap wordMap =
   filter 
     (\x -> case x of
@@ -54,6 +56,7 @@ helperNames2W wrds = namesHelper (bigram_s wrds)
     
 helperNames3W wrds =  namesHelper (trigram_s wrds)
 
+companyNames :: [[Char]] -> [([Char], [Char])]
 companyNames wrds =
   let cns = removeDuplicates $ sort $
               helperNames1W wrds companyMap companyNamesOneWord ++
@@ -61,6 +64,7 @@ companyNames wrds =
               helperNames3W wrds companyMap companyNamesThreeWords in
   map (\(s, Just (a,Just b)) -> (a,b)) cns
     
+countryNames :: [[Char]] -> [([Char], [Char])]
 countryNames wrds =
   let cns = removeDuplicates $ sort $
               helperNames1W wrds countryMap countryNamesOneWord ++
@@ -68,13 +72,15 @@ countryNames wrds =
               helperNames3W wrds countryMap countryNamesThreeWords in
   map (\(s, Just (a,Just b)) -> (a,b)) cns
 
+entityHelper :: M.Map [Char] [Char] -> [[Char]] -> [([Char], [Char])]
 entityHelper entityTypeMap wrds =
   let cns = removeDuplicates $ sort $
               helperNames1W wrds entityTypeMap Data.Set.empty ++
               helperNames2W wrds entityTypeMap Data.Set.empty ++
               helperNames3W wrds entityTypeMap Data.Set.empty in
   map (\(s, Just (a,Just b)) -> (a,b)) cns
-  
+
+peopleNames :: [[Char]] -> [([Char], [Char])]
 peopleNames wrds = entityHelper peopleMap wrds
 
 cityNames wrds = entityHelper cityMap wrds
