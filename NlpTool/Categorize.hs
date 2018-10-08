@@ -21,11 +21,11 @@ stemWordsInString s = init $ concatMap ((++ " ") . stem) (splitWords s) -- why d
 
 stemScoredWordList = map (\(str,score) -> (stemWordsInString str, score))
 
-stem2 = map (\(category, swl) -> (category, M.fromList (stemScoredWordList (M.toList swl)))) twograms
+stemHelper = map (\(category, swl) -> (category, M.fromList (stemScoredWordList (M.toList swl))))
 
--- note: the following does extra, uneeded work:
+stem2 = stemHelper twograms
 
-stem1 = map (\(category, swl) -> (category, M.fromList (stemScoredWordList (M.toList swl)))) onegrams
+stem1 = stemHelper onegrams
 
 scoreCat wrds amap =
   sum $ map (\x ->  M.findWithDefault 0.0 x amap) wrds
@@ -35,7 +35,7 @@ score wrds amap =
  
 cmpScore (a1, b1) (a2, b2) = compare b2 b1
                               
-bestCategoriesHelper wrds ngramMap categoryNames=
+bestCategoriesHelper wrds ngramMap categoryNames =
   let tg = bigram_s wrds in
     map (\(a, b) -> (categoryNames !! a, b)) $ sortBy cmpScore $ score wrds ngramMap
        
