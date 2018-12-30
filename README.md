@@ -1,5 +1,7 @@
 # Examples for "Haskell Tutorial and Cookbook" by Mark Watson
 
+![Haskell Logo](haskell.svg)
+
 This repo contains the examples for my Haskell book:
 
 [Haskell Tutorial and Cookbook](https://leanpub.com/haskell-cookbook)
