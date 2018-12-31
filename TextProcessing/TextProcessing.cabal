@@ -16,7 +16,7 @@ executable TestCSV
   hs-source-dirs:      .
   main-is:             TestCSV.hs
   default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5, csv, either-unwrap
+  build-depends:       base >= 4.7 && < 5, csv, either-unwrap >= 1.1
 
 executable TestTextJSON
   hs-source-dirs:      .
