@@ -5,7 +5,8 @@
         *Main> main
         *Main> :l RobsExample
         *Main> main
-        
+
+Note: the URI for the demo  RDF file for RobsExample is no longer valid so this example will not run as-is.
 
 # Using RDF4H
 

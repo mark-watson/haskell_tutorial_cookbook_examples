@@ -3,5 +3,6 @@ extra-package-dbs: []
 packages:
 - '.'
 extra-deps:
-resolver: lts-11.6
+- either-unwrap-1.1
+resolver: lts-13.0
 

@@ -36,7 +36,7 @@ stack build
 
 stack ghci
 
-stack exec nlptool
+stack exec NlpTool
 
 Inside stack ghci:
 
