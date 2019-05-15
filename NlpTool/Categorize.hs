@@ -53,9 +53,13 @@ bestCategories2stem wrds =
 
 bestCategories :: [String] -> [(String, Double)]
 bestCategories wrds =
-  let sum1 = M.unionWith (+) (M.fromList $ bestCategories1 wrds) ( M.fromList $ bestCategories2 wrds)
-      sum2 = M.unionWith (+) (M.fromList $ bestCategories1stem wrds) ( M.fromList $ bestCategories2stem wrds) 
-  in sortBy cmpScore $ M.toList $ M.unionWith (+) sum1 sum2
+  map do_normalization_to_probabilities non_normalized where
+      sum1 = M.unionWith (+) (M.fromList $ bestCategories1 wrds) ( M.fromList $ bestCategories2 wrds)
+      sum2 = M.unionWith (+) (M.fromList $ bestCategories1stem wrds) ( M.fromList $ bestCategories2stem wrds)
+      non_normalized = sortBy cmpScore $ M.toList $ M.unionWith (+) sum1 sum2
+      total_scores = foldl (+) 0 $ map snd non_normalized
+      do_normalization_to_probabilities (name, value) =
+        (name, value / total_scores)
       
 main = do
     let s = "The sport of hocky is about 100 years old by ahdi dates. American Football is a newer sport. Programming is fun. Congress passed a new budget that might help the economy. The frontier initially was a value path. The ai research of john mccarthy."
