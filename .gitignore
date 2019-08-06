@@ -6,3 +6,4 @@ test.db
 _*
 .DS_Store
 NLPdb.hsproj
+.vscode
