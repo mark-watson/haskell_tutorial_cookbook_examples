@@ -1,4 +1,4 @@
-# Examples for "Haskell Tutorial and Cookbook" by Mark Watson
+# Examples for "Haskell Tutorial and Cookbook, Second Edition" by Mark Watson
 
 ![Haskell Logo](haskell.svg)
 
