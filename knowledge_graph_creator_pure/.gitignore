@@ -1,0 +1,8 @@
+.stack-work/
+.DS_Store
+*.n3
+*.rdf
+*.cypher
+*~
+.vscode
+

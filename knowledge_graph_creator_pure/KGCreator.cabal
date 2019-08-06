@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
-name:           NlpTool
+name:           KGCreator
 version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/mark-watson/knowledge_graph_creator.hs#readme>
 homepage:       https://github.com/mark-watson/knowledge_graph_creator.hs#readme
@@ -16,16 +16,25 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/NlpTool
+  location: https://github.com/githubuser/KGCreator
 
 library
   exposed-modules:
+      CorefWebClient
+      NlpWebClient
+      ClassificationWebClient
+      DirUtils
+      FileUtils
+      BlackBoard
+      GenTriples
+      GenNeo4jCypher
+      Apis
       Categorize
-      Entities
-      Sentence
-      Summarize
       NlpUtils
-      Stemmer
+      Summarize
+      Entities
+  other-modules:
+      Paths_KGCreator
       BroadcastNetworkNamesDbPedia
       Category1Gram
       Category2Gram
@@ -34,32 +43,41 @@ library
       CountryNamesDbpedia
       PeopleDbPedia
       PoliticalPartyNamesDbPedia
+      Sentence
+      Stemmer
       TradeUnionNamesDbPedia
       UniversityNamesDbPedia
-  other-modules:
-      Paths_NlpTool
+
   hs-source-dirs:
       src
-      src/nlp
-      src/nlp/data
+      src/webclients
+      src/fileutils
+      src/sw
+      src/toplevel
+      ../NlpTool/src/nlp
+      ../NlpTool/src/nlp/data
+
   build-depends:
       base >=4.7 && <5, wreq, lens, bytestring
     , hxt, json, uri-encode >= 1.5.0.5, MissingH
-    , aeson >= 1.4.2.0, containers, split, text
+    , aeson >= 1.4.2.0, containers, split >= 0.2.3.3, text
     , directory, yaml, aeson, string-conversions
-    , MissingH, json >= 0.9.3
+    , MissingH, sqlite-simple
   default-language: Haskell2010
 
-executable NlpTool-exe
-  main-is: NlpTool.hs
+executable KGCreator-exe
+  main-is: Main.hs
   other-modules:
-      Paths_NlpTool
+      Paths_KGCreator
   hs-source-dirs:
       app
+      ../NlpTool/src/nlp
+      ../NlpTool/src/nlp/data
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      NlpTool
+      KGCreator
     , base >=4.7 && <5
     , MissingH
-    , directory, json >= 0.9.3
+    , directory, containers >= 0.6.0.1, split >= 0.2.3.3
   default-language: Haskell2010
+

@@ -39,6 +39,9 @@ packages:
 # (e.g., acme-missiles-0.3)
 # extra-deps: []
 
+#extra_deps:
+#- ../NlpTool-0.1.0.0
+
 # Override default flag values for local packages and extra-deps
 # flags: {}
 
