@@ -1,5 +1,7 @@
 # KGCreator
 
+Licensed under the AGPL version 3. See https://markwatson.com/opensource/ for an alternative commercial license ($50).
+
 ## CorefWebClient Client Example
 
 ### Run examples

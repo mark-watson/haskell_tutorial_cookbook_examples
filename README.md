@@ -66,7 +66,13 @@ Section 2 - Cookbook
   Haskell Libraries
   Linked Data and the Semantic Web
   Play a simple version of the Blackjack card game
-  
+
+Section 3 - More applications
+
+  Knowledge Graph Creator (convert plain text to Neo4J and RDF data)
+  Hybrid Haskell and Python NLP example using SpaCy NLP library
+  Hybrid Haskell and Python Anaphora Resolution (coreference detection) example
+
 Appendix A - Haskell Tools Setup
 
   Stack
@@ -79,4 +85,6 @@ Appendix A - Haskell Tools Setup
 
 See Appendix A in my book, or simply install **stack** and **hlint**.
 
+## Alternative license for the Knowledge Graph Creator example
 
+All examples in this book are licensed using the Apache 2 licence except for the Knowledge Graph Creator example which is released under the AGPL version 3 license. If you need to use the KGCreator code in a commercial application I offer an alternative license for $50 (see [my open source web page](https://markwatson.com/opensource/)).
