@@ -1,5 +1,6 @@
 flags: {}
 packages:
 - .
-extra-deps: []
-resolver: lts-13.0
+extra-deps:
+- json-0.10
+resolver: lts-16.0

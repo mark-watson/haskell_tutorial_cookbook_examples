@@ -22,7 +22,7 @@ executable TestTextJSON
   hs-source-dirs:      .
   main-is:             TestTextJSON.hs
   default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5, json
+  build-depends:       base >= 4.7 && < 5, json >= 0.10
 
 executable TestAESON
   hs-source-dirs:      .

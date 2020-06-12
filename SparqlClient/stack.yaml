@@ -1,16 +1,17 @@
+resolver: lts-16.0
+
 # flags:
 extra-package-dbs: []
 packages:
 - '.'
-- location:
-    git: https://github.com/robstewart57/rdf4h.git
-    commit: 046ea63f3c8f7636251b80695bee627306b8b2d2
-- location:
-    git: https://github.com/robstewart57/hsparql.git
-    commit: 7f6e1952e44c5e6edf952d3493e2263ef689385b
+#- location:
+#    git: https://github.com/robstewart57/rdf4h.git
+#    commit: 046ea63f3c8f7636251b80695bee627306b8b2d2
+#- location:
+#    git: https://github.com/robstewart57/hsparql.git
+#    commit: 7f6e1952e44c5e6edf952d3493e2263ef689385b
 extra-deps:
 - hgal-2.0.0.2
 - rdf4h-3.0.1
 - hsparql-0.2.9
-resolver: lts-13.0
 

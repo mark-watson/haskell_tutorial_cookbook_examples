@@ -6,6 +6,8 @@ This repo contains the examples for my Haskell book:
 
 [Haskell Tutorial and Cookbook](https://leanpub.com/haskell-cookbook)
 
+Updated 6/12/2020 for stack resolver: lts-16.0
+
 Updated 8/6/2019 for the second edition of my book
 
 ## Book Table of Contents (This will change as the book is written)
