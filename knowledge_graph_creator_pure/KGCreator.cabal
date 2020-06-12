@@ -8,7 +8,7 @@ bug-reports:    https://github.com/mark-watson/knowledge_graph_creator.hs/issues
 author:         Mark Watson
 maintainer:     mark@markwatson.com
 copyright:      2019 Mark Watson
-license:        AGPL
+license:        Apache-2.0
 license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
