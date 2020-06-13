@@ -10,6 +10,10 @@ Updated 6/12/2020 for stack resolver: lts-16.0
 
 Updated 8/6/2019 for the second edition of my book
 
+## Donate on Patreon to support all of my projects
+
+Please visit [https://www.patreon.com/markwatson](https://www.patreon.com/markwatson) and sign up to donate $1/month
+
 ## Book Table of Contents (This will change as the book is written)
 
 ````````
