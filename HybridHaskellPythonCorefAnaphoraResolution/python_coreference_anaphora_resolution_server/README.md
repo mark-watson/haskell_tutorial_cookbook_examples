@@ -1,11 +1,13 @@
 # Installation:
 
+    pip install spacy==2.1.0 # see discusion in book of either using older version of spaCy or building neuralcoref from source
     pip install neuralcoref
     pip install -U spacy
     python -m spacy download en
     pip install falcon
 
     python setup.py install
+
 
 This installs the executable **corefserver** on your path so you can run the server from any
 directory using:
