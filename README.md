@@ -10,6 +10,12 @@ Updated 6/12/2020 for stack resolver: lts-16.0
 
 Updated 8/6/2019 for the second edition of my book
 
+Note: 6/18/2020: install directions in Appendix A to optionally install **cabal-install** (with latest GHC 8.8.3) produces an error running:
+
+        stack install cabal-install
+
+Installing **cabal-install** is optional. Installing **stack** using the directions in Appendix A which refers you to th official documentation at [http://docs.haskellstack.org/en/stable/README.html](http://docs.haskellstack.org/en/stable/README.html is sufficient for running the exampes in my book.
+
 ## Donate on Patreon to support all of my projects
 
 Please visit [https://www.patreon.com/markwatson](https://www.patreon.com/markwatson) and sign up to donate $1/month
