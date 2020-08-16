@@ -8,7 +8,7 @@ author:         Mark Watson
 maintainer:     mark@markwatson.com
 copyright:      2019 Mark Watson
 license:        Apache-2.0
-license-file:   APACHE LICENSE-2.0.txt (in parent directory)
+license-file:   ../APACHE_LICENSE-2.0.txt
 build-type:     Simple
 extra-source-files:
     README.md

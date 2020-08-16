@@ -4,7 +4,7 @@ synopsis:            text processing examples
 description:         Please see README.md
 homepage:            https://github.com/mark-watson/haskell_tutorial_cookbook_examples
 license:             Apache-2.0
-license-file:        APACHE LICENSE-2.0.txt (in parent directory)
+license-file:        ../APACHE_LICENSE-2.0.txt
 author:              Mark watson
 copyright:           2016 Mark Watson
 category:            TextProcessing
