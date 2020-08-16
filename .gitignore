@@ -7,3 +7,4 @@ _*
 .DS_Store
 NLPdb.hsproj
 .vscode
+*/stack.yaml.lock
