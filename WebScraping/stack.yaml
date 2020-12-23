@@ -3,4 +3,4 @@ packages:
 - .
 extra-deps:
 - json-0.10
-resolver: 16.26
+resolver: lts-16.26

@@ -5,5 +5,5 @@ packages:
 extra-deps:
 - either-unwrap-1.1
 - json-0.10
-resolver: 16.26
+resolver: lts-16.26
 
