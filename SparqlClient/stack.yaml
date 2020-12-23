@@ -1,4 +1,4 @@
-resolver: lts-16.0
+resolver: 16.26
 
 # flags:
 extra-package-dbs: []

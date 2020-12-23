@@ -18,3 +18,9 @@ build:
 clean:
 	rm -r -f */.stack-work
 
+update_stack_resolver_macOs:
+	sed -i ''  's/^resolver: .*/resolver: 16.26/' */stack.yaml
+
+update_stack_resolver_linux:
+	sed -i  's/^resolver: .*/resolver: 16.26/' */stack.yaml
+
