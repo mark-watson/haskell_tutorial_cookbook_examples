@@ -8,7 +8,7 @@ This repo contains the examples for my Haskell book:
 
 ## I am starting to use this repo for all personal Haskell projects.
 
-If you see a file named **NOT_YET_IN_BOOK.md** in any subdirectory, then please don't expect (yet) that this example is in the book.
+In the future, if you see a file named **NOT_YET_IN_BOOK.md** in any subdirectory, then please don't expect (yet) that this example is in the book. Currently everything in this repo is in the second edition of my book.
 
 ## Updates
 
