@@ -9,6 +9,3 @@ I assume that it is installed (see the book for directions) or see the readme fi
 
     stack build --fast --exec HybridHaskellPythonNlp-exe
 
-Note: 12/24/2020: to install with json with latest stack resolver, I had to:
-
-set 'allow-newer: true' in ~/.stack/config.yaml
