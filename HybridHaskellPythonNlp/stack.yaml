@@ -21,6 +21,8 @@ resolver: lts-16.26
 #   - wai
 packages:
 - .
+extra-deps:
+- json-0.10
 # Dependency packages to be pulled from upstream that are not in the resolver.
 # These entries can reference officially published versions as well as
 # forks / in-progress versions pinned to a git hash. For example:
