@@ -8,3 +8,5 @@ _*
 NLPdb.hsproj
 .vscode
 stack.yaml.lock
+out
+
