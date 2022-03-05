@@ -1,8 +1,8 @@
-# Examples for "Haskell Tutorial and Cookbook, Second Edition" by Mark Watson
+# Examples for "Haskell Tutorial and Cookbook" by Mark Watson
 
 ![Haskell Logo](haskell.svg)
 
-This repo contains the examples for my Haskell book:
+This repo contains the examples for my Haskell book that I try to update with new material about once a year:
 
 [Haskell Tutorial and Cookbook](https://leanpub.com/haskell-cookbook)
 
@@ -12,9 +12,7 @@ In the future, if you see a file named **NOT_YET_IN_BOOK.md** in any subdirector
 
 ## Updates
 
-Updated 12/23/2020 for stack resolver: lts-16.26
-
-Updated 8/6/2019 for the second edition of my book
+Updated 3/5/2022 for stack resolver: lts-lts-18.27
 
 ## Tool Installation
 
