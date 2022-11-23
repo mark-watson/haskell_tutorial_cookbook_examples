@@ -29,3 +29,15 @@ executable HttpSparqlClient
   default-language:    Haskell2010
   build-depends:       base >= 4.7 && < 5, HTTP >= 4, http-conduit, containers, hxt, HandsomeSoup, text, bytestring
 
+executable HttpSparqlJsonClient
+  hs-source-dirs:      .
+  main-is:             HttpSparqlJsonClient.hs
+  default-language:    Haskell2010
+  build-depends:       base >= 4.7 && < 5, HTTP >= 4, http-conduit, containers, hxt, HandsomeSoup, text, bytestring, json >= 0.10, yaml, aeson
+
+executable JsonTest
+  hs-source-dirs:      .
+  main-is:             JsonTest.hs
+  default-language:    Haskell2010
+  build-depends:       base >= 4.7 && < 5, HTTP >= 4, http-conduit, containers, hxt, HandsomeSoup, text, bytestring, json >= 0.10, yaml, aeson
+
