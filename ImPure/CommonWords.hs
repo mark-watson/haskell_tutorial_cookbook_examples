@@ -25,8 +25,8 @@ commonWords3 file1 file2 =
 main = do
   cw <- commonWords "text1.txt" "text2.txt"
   print cw
-  cw2 <- commonWords "text1.txt" "text2.txt"
+  cw2 <- commonWords2 "text1.txt" "text2.txt"
   print cw2
-  cw3 <- commonWords "text1.txt" "text2.txt"
+  cw3 <- commonWords3 "text1.txt" "text2.txt"
   print cw3
   
