@@ -15,29 +15,29 @@ executable TestSparqlClient
   hs-source-dirs:      .
   main-is:             TestSparqlClient.hs
   default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5, rdf4h >= 3.0.0, hsparql, text
+  build-depends:       base >= 4.7 && < 5, hsparql, mtl >= 2.2.2, rdf4h >= 3.0.0, text
 
 executable RobsExample
   hs-source-dirs:      .
   main-is:             RobsExample.hs
   default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5, HTTP >= 4, rdf4h >= 3.0.0, hsparql, text
+  build-depends:       HTTP >= 4, base >= 4.7 && < 5, hsparql, mtl >= 2.2.2, rdf4h >= 3.0.0, text
 
 executable HttpSparqlClient
   hs-source-dirs:      .
   main-is:             HttpSparqlClient.hs
   default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5, HTTP >= 4, http-conduit, containers, hxt, HandsomeSoup, text, bytestring
+  build-depends:       HTTP >= 4, HandsomeSoup, base >= 4.7 && < 5, bytestring, containers, http-conduit, hxt, mtl >= 2.2.2, text
 
 executable HttpSparqlJsonClient
   hs-source-dirs:      .
   main-is:             HttpSparqlJsonClient.hs
   default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5, HTTP >= 4, http-conduit, containers, hxt, HandsomeSoup, text, bytestring, json >= 0.10, yaml, aeson
+  build-depends:       HTTP >= 4, HandsomeSoup, aeson, base >= 4.7 && < 5, bytestring, containers, http-conduit, hxt, json >= 0.10, mtl >= 2.2.2, text, yaml
 
 executable JsonTest
   hs-source-dirs:      .
   main-is:             JsonTest.hs
   default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5, HTTP >= 4, http-conduit, containers, hxt, HandsomeSoup, text, bytestring, json >= 0.10, yaml, aeson
+  build-depends:       HTTP >= 4, HandsomeSoup, aeson, base >= 4.7 && < 5, bytestring, containers, http-conduit, hxt, json >= 0.10, mtl >= 2.2.2, text, yaml
 
