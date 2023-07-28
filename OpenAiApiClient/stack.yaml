@@ -1,0 +1,9 @@
+resolver: lts-21.4
+
+# flags:
+extra-package-dbs: []
+packages:
+- '.'
+extra-deps:
+- openai-hs
+

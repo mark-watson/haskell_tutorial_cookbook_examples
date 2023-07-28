@@ -1,0 +1,19 @@
+name:                OpenAiApiClient
+version:             0.1.0.0
+synopsis:            Simple project template from stack
+description:         Please see README.md
+homepage:            https://github.com/mark-watson/haskell_tutorial_cookbook_examples
+license:             Apache-2.0
+license-file:        ../APACHE_LICENSE-2.0.txt
+author:              Mark watson
+copyright:           2023 Mark Watson
+category:            Web
+build-type:          Simple
+cabal-version:       >=1.10
+
+executable GenText
+  hs-source-dirs:      .
+  main-is:             GenText.hs
+  default-language:    Haskell2010
+  build-depends:       base >= 4.7 && < 5, mtl >= 2.2.2, text
+
