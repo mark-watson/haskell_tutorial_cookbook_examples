@@ -20,8 +20,8 @@ clean:
 	rm -r -f */.stack-work
 
 update_stack_resolver_macOs:
-	sed -i ''  's/^resolver: .*/resolver: lts-19.25/' */stack.yaml
+	sed -i ''  's/^resolver: .*/resolver: lts-21.4/' */stack.yaml
 
 update_stack_resolver_linux:
-	sed -i  's/^resolver: .*/resolver: lts-19.25/' */stack.yaml
+	sed -i  's/^resolver: .*/resolver: lts-21.4/' */stack.yaml
 

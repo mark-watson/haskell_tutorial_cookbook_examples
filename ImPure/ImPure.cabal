@@ -10,8 +10,8 @@ maintainer:          markw@markwatson.com
 copyright:           Copyright 2016 Mark Watson. All rights reserved
 category:            dev
 build-type:          Simple
-cabal-version:       >=1.22.4.0
-
+cabal-version:       1.22.4.0
+               
 executable DoLetExample
   hs-source-dirs:      .
   main-is:             DoLetExample.hs

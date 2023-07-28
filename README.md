@@ -14,7 +14,11 @@ In the future, if you see a file named **NOT_YET_IN_BOOK.md** in any subdirector
 
 ## Updates
 
-Updated 3/5/2022 for stack resolver: lts-lts-18.27
+Updated 7/28/2023 for stack resolver: lts-lts-21.4
+
+Note: to build sqlite example I had to:
+
+    Set 'allow-newer: true' in /home/markw/.stack/config.yaml to ignore all version constraints
 
 ## Tool Installation
 
