@@ -5,7 +5,8 @@
 import OpenAI.Client
 
 import Network.HTTP.Client
-import Network.HTTP.Client.TLS
+
+--import Network.HTTP.Client.TLS
 import System.Environment (getEnv)
 import qualified Data.Text as T
 
