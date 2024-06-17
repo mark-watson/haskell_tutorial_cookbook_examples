@@ -3,4 +3,5 @@ packages:
 - .
 extra-deps:
 - json-0.10
-resolver: lts-21.4
+resolver: lts-22.26
+allow-newer: true

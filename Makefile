@@ -3,10 +3,10 @@ build:
 	cd ClientServer; stack build
 	cd CommandLineApp; stack build
 	echo "skipping building Database-postgres"
-	cd Database-sqlite; stack build
+	#cd Database-sqlite; stack build
 	cd debugging; stack build
 	cd ImPure; stack build
-	cd NlpTool; stack build
+	#cd NlpTool; stack build
 	cd Pure; stack build
 	cd SparqlClient; stack build
 	cd StateMonad; stack build
@@ -17,11 +17,11 @@ build:
 	cd FastTag; stack build
 
 clean:
-	rm -r -f */.stack-work
+	rm -r -f */.stack-work */dist-newstyle
 
 update_stack_resolver_macOs:
-	sed -i ''  's/^resolver: .*/resolver: lts-21.4/' */stack.yaml
+	sed -i ''  's/^resolver: .*/resolver: lts-22.26/' */stack.yaml
 
 update_stack_resolver_linux:
-	sed -i  's/^resolver: .*/resolver: lts-21.4/' */stack.yaml
+	sed -i  's/^resolver: .*/resolver: lts-22.26/' */stack.yaml
 

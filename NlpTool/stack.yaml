@@ -9,7 +9,9 @@
 # to be used for project dependencies. For example:
 #
 
-resolver: lts-21.4
+resolver: lts-22.26
+
+allow-newer: true
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.

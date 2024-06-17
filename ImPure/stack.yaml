@@ -1,6 +1,8 @@
 # Read the resolvr version number from ~/.stack/config.yaml
 
-resolver: lts-21.4
+resolver: lts-22.26
+
+allow-newer: true
 
 # Local packages, usually specified by relative directory name
 packages:

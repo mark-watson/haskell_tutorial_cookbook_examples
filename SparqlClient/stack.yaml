@@ -1,4 +1,6 @@
-resolver: lts-21.4
+resolver: lts-22.26
+
+allow-newer: true
 
 # flags:
 extra-package-dbs: []
@@ -11,9 +13,9 @@ packages:
 #    git: https://github.com/robstewart57/hsparql.git
 #    commit: 7f6e1952e44c5e6edf952d3493e2263ef689385b
 extra-deps:
-- MissingH-1.4.3.0@sha256:32f9892ec98cd21df4f4d3ed8d95a3831ae74287ea0641d6f09b2dc6ef061d39,4859
-- random-1.2.1
-- hgal-2.0.0.2
+- MissingH-1.6.0.1
+- random-1.2.1.2
+- hgal-2.0.0.3
 - rdf4h-3.0.1
 - hsparql-0.2.9
 
