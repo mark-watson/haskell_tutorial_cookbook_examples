@@ -1,7 +1,8 @@
+resolver: lts-22.26
+allow-newer: false
+
 flags: {}
 packages:
 - .
 extra-deps:
-- json-0.10
-resolver: lts-22.26
-allow-newer: true
+- json-0.11

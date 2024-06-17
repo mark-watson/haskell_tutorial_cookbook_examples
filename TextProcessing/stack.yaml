@@ -1,3 +1,6 @@
+resolver: lts-22.26
+allow-newer: false
+
 # flags:
 extra-package-dbs: []
 packages:
@@ -7,7 +10,4 @@ extra-deps:
 - random-1.2.1.2
 - either-unwrap-1.1
 - json-0.11
-
-resolver: lts-22.26
-allow-newer: true
 
