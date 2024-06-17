@@ -1,13 +1,14 @@
 resolver: lts-22.26
 
-allow-newer: true
+allow-newer: false
 
 # flags:
 extra-package-dbs: []
 packages:
 - '.'
 extra-deps:
-- http-client-0.7.13.1
-- openai-servant-0.2.3.0@sha256:b992ac6deb00249548a75b5176b24f3c51bde81c279330f607bd997da37df0be
+- http-client-0.7.17
+- openai-servant-0.3.0.1
 - openai-hs-0.3.0.1
+- http-client-tls-0.3.6.3
 

@@ -5,26 +5,26 @@
 
 packages:
 - completed:
-    hackage: json-0.10@sha256:d9fc6b07ce92b8894825a17d2cf14799856767eb30c8bf55962baa579207d799,3210
+    hackage: json-0.11@sha256:3afa37628415992fe648da6f002672f5a0119aa5d49022bf928d10a927c29318,3250
     pantry-tree:
-      sha256: 5654f66b7cd8bf087ac040a9b0a83eb064219eab32230f61a3adeddfdbb4d4cd
+      sha256: 71526412887c0e9b5fe732f629fd1771e6fcce132ebe7bb1a95d6c509372c902
       size: 3190
   original:
-    hackage: json-0.10
+    hackage: json-0.11
 - completed:
-    hackage: sqlite-simple-0.4.18.0@sha256:3ceea56375c0a3590c814e411a4eb86943f8d31b93b110ca159c90689b6b39e5,3002
+    hackage: sqlite-simple-0.4.19.0@sha256:2996a0cef2ac99925ffb51cbf99d0a3fc129d67f3ece2294f14edb277d7b32d5,3153
     pantry-tree:
-      sha256: e58b9955e483d51ee0966f8ba4384305d871480e2a38b32ee0fcd4573d74cf95
+      sha256: 328b696862be96e4eb3769a3ef2ebf2ebf82fb85ae71c114826b81e85dc876c5
       size: 1930
   original:
-    hackage: sqlite-simple-0.4.18.0
+    hackage: sqlite-simple-0.4.19.0
 - completed:
-    hackage: direct-sqlite-2.3.26@sha256:04e835402f1508abca383182023e4e2b9b86297b8533afbd4e57d1a5652e0c23,3718
+    hackage: direct-sqlite-2.3.29@sha256:6ff3969a6eae383c8a9ab093abfee7f7b0ed76dab045c984a1497b7e1d71279d,4180
     pantry-tree:
-      sha256: 11874ab21e10c5b54cd1e02a037b677dc1e2ee9986f38c599612c56654dc01c3
+      sha256: 794455a2e32dc749ff32d8907bc51d810f79b963d5e21c42bc8555bc34bbd625
       size: 770
   original:
-    hackage: direct-sqlite-2.3.26
+    hackage: direct-sqlite-2.3.29
 snapshots:
 - completed:
     sha256: 8e7996960d864443a66eb4105338bbdd6830377b9f6f99cd5527ef73c10c01e7

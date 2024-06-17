@@ -10,7 +10,7 @@
 
 resolver: lts-22.26
 
-allow-newer: true
+allow-newer: false
 
 
 # User packages to be built.
@@ -29,9 +29,9 @@ allow-newer: true
 packages:
 - .
 extra-deps:
-- json-0.10
-- sqlite-simple-0.4.18.0
-- direct-sqlite-2.3.26
+- json-0.11
+- sqlite-simple-0.4.19.0
+- direct-sqlite-2.3.29
 
 #extra_deps:
 #- ../NlpTool-0.1.0.0

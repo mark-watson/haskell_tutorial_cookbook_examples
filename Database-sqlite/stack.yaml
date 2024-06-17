@@ -3,7 +3,7 @@
 # Specifies the GHC version and set of packages available (e.g., lts-3.5, nightly-2015-09-21, ghc-7.10.2)
 resolver: lts-22.26
 
-allow-newer: true
+allow-newer: false
 
 # Local packages, usually specified by relative directory name
 packages:
@@ -11,10 +11,10 @@ packages:
 
 # Packages to be pulled from upstream that are not in the resolver (e.g., acme-missiles-0.3)
 extra-deps:
-- MissingH-1.4.3.0@sha256:32f9892ec98cd21df4f4d3ed8d95a3831ae74287ea0641d6f09b2dc6ef061d39,4859
-- random-1.1@sha256:7b67624fd76ddf97c206de0801dc7e888097e9d572974be9b9ea6551d76965df,1777
-- sqlite-simple-0.4.18.0
-- direct-sqlite-2.3.26
+- MissingH-1.6.0.1
+- random-1.2.1.2
+- sqlite-simple-0.4.19.0
+- direct-sqlite-2.3.29
 
 # Override default flag values for local packages and extra-deps
 flags: {}
