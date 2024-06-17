@@ -12,7 +12,7 @@ import qualified Data.Text as T
 
 request :: ChatCompletionRequest
 request = ChatCompletionRequest 
-         { chcrModel = ModelId "gpt-3.5-turbo"
+         { chcrModel = ModelId "gpt-4o"
          , chcrMessages = 
             [ChatMessage { chmContent = Just "Write a hello world program in Haskell"
                          , chmRole = "user"
