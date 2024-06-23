@@ -17,3 +17,9 @@ executable GenText
   default-language:    Haskell2010
   build-depends:       base >= 4.7 && < 5, mtl >= 2.2.2, text, http-client >= 0.7.13.1, openai-hs, http-client-tls
 
+executable Completion
+  hs-source-dirs:      .
+  main-is:             GenText.hs
+  default-language:    Haskell2010
+  build-depends:       base >= 4.7 && < 5, mtl >= 2.2.2, text, http-client >= 0.7.13.1, openai-hs, http-client-tls, http-conduit, aeson
+

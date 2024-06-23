@@ -9,6 +9,7 @@ import Network.HTTP.Client
 import Network.HTTP.Client.TLS
 import System.Environment (getEnv)
 import qualified Data.Text as T
+import Data.Maybe (fromMaybe)
 
 request :: ChatCompletionRequest
 request = ChatCompletionRequest 
@@ -34,13 +35,17 @@ request = ChatCompletionRequest
          }
 
 main :: IO ()
-main =
-  do manager <- newManager tlsManagerSettings
-     apiKey <- T.pack <$> getEnv "OPENAI_KEY"
-     -- create a openai client that automatically retries up to 4 times on network
-     -- errors
-     let client = makeOpenAIClient apiKey manager 4
-     result <- completeChat client request        
-     case result of
-       Left failure -> print failure
-       Right success -> print $ chrChoices success
+main = do
+  manager <- newManager tlsManagerSettings
+  apiKey <- T.pack <$> (getEnv "OPENAI_KEY")
+  -- create a openai client that automatically retries up to 4 times on network
+  -- errors
+  let client = makeOpenAIClient apiKey manager 4
+  result <- completeChat client request        
+  case result of
+    Left failure -> print failure
+    Right success ->  -- print $ chrChoices success
+      case chrChoices success of
+        (ChatChoice {chchMessage = ChatMessage {chmContent = content}}:_) ->
+          putStrLn $ fromMaybe "No content" $ T.unpack <$> content
+        _ -> putStrLn "No choices returned"
