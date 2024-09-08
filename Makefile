@@ -19,7 +19,7 @@ build:
 	cd FastTag; stack build
 
 clean:
-	rm -r -f */.stack-work */dist-newstyle
+	rm -r -f */.stack-work */dist-newstyle */*.dyn*
 
 update_stack_resolver_macOs:
 	sed -i ''  's/^resolver: .*/resolver: lts-22.26/' */stack.yaml

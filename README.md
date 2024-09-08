@@ -29,3 +29,20 @@ Note: 6/18/2020: install directions in Appendix A to optionally install **cabal-
         stack install cabal-install
 
 Installing **cabal-install** is optional. Installing **stack** using the directions in Appendix A which refers you to th official documentation at [http://docs.haskellstack.org/en/stable/README.html](http://docs.haskellstack.org/en/stable/README.html is sufficient for running the exampes in my book.
+
+## Notes for running examples using Replit.com repls (September 8, 2024)
+
+By default stack is not installed. 
+Accept the default's for Haskell after creating a new Replit repl by cloning this GitHub project.
+
+Then update cabal package index:
+
+    cd Pure
+    cabal update
+
+It will ask you which cabal sysem to install. I chose the command line version.
+
+    cabal build
+    cabal repl
+    ghci> :l Guards.hs 
+    ghci> main
