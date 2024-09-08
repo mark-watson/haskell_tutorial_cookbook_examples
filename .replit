@@ -1,0 +1,8 @@
+modules = ["haskell-ghc9.4", "python-3.12"]
+run = "ls"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "ls"]
