@@ -79,3 +79,11 @@ Alternatively, you can run the Haskell code without compiling by using an interp
 
 This should also produce the output "Hello, World!" in the terminal.
 ```
+
+
+## Run using Replit.com, Nix, Cabal
+
+    cabal build
+    cabal run
+
+Note: I had to manually install:  cabal install cpphs
