@@ -7,6 +7,8 @@ import System.Environment (getEnv)
 import qualified Data.Text as T
 import Data.Maybe (fromMaybe)
 
+-- example derived from the openai-client library documentation
+
 completionRequestToString :: String -> IO String
 completionRequestToString prompt = do
     manager <- newManager tlsManagerSettings

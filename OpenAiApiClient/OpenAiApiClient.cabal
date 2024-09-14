@@ -5,8 +5,8 @@ description:         Please see README.md
 homepage:            https://github.com/mark-watson/haskell_tutorial_cookbook_examples
 license:             Apache-2.0
 license-file:        ../APACHE_LICENSE-2.0.txt
-author:              Mark watson
-copyright:           2023 Mark Watson
+author:              Mark watson and the author of OpenAI Client library Alexander Thiemann
+copyright:           2024 Mark Watson
 category:            Web
 build-type:          Simple
 cabal-version:       >=1.10
