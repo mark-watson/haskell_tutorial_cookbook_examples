@@ -18,4 +18,4 @@ stack build --exec TestSqLite1
 
     sqlite3 test.db "create table test (id integer primary key, str text);"
     cabal build
-    cabal 
+    cabal run
