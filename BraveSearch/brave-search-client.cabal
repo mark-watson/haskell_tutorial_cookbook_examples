@@ -1,0 +1,15 @@
+name:                brave-search-client
+version:             0.1.0.0
+build-type:          Simple
+cabal-version:       >=1.10
+
+executable brave-search-client
+  main-is:             Main.hs
+  other-modules:       BraveSearch
+  build-depends:       base >=4.7 && <5
+                     , http-conduit
+                     , aeson
+                     , text
+                     , bytestring
+                     , http-client
+  default-language:    Haskell2010
