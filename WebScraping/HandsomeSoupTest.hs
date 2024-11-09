@@ -11,7 +11,7 @@ import Text.HandsomeSoup
 
 main :: IO ()
 main = do
-  let doc = fromUrl "http://markwatson.com/"
+  let doc = fromUrl "https://markwatson.com/"
   putStrLn "\n\n ** LINKS:\n"
   links <- runX $ doc >>> css "a" ! "href"
   mapM_ putStrLn links
