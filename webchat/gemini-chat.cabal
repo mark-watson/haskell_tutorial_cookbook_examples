@@ -1,0 +1,33 @@
+cabal-version:      2.4
+name:              gemini-chat
+version:           0.1.0.0
+executable gemini-chat
+  main-is:          Main.hs
+
+  -- Dependencies
+  build-depends:    base >= 4.7 && < 5
+                  , scotty
+                  , http-client >= 0.7
+                  , http-client-tls
+                  , http-types
+                  , aeson
+                  , text
+                  , vector
+                  , bytestring
+  if os(darwin)
+      ghc-options:
+      ld-options:
+
+  -- Language extensions used in the code
+  default-extensions:
+    OverloadedStrings
+    DeriveGeneric
+    LambdaCase
+    DeriveAnyClass
+
+  program-default-options
+  hsc2hs: --with-hsc2hs=/opt/homebrew/bin/hsc2hs
+  
+  -- Compiler flags
+  ghc-options: -Wall -O2
+
