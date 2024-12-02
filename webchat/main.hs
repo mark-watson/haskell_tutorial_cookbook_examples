@@ -114,6 +114,7 @@ main = do
               )
             ]
 
+
       let request2 = initialRequest
             { requestHeaders =
                 [ ("Content-Type", "application/json")
@@ -135,7 +136,7 @@ main = do
 
       let maybeGeminiResponse = Aeson.decode (responseBody response2) :: Maybe GeminiResponse
       
-      liftIO $ putStrLn $ "Parsed response: " ++ show maybeGeminiResponse  -- Debug print
+      liftIO $ putStrLn $ "Parsed response: " ++ show maybeGeminiResponse
       liftIO $ hFlush stdout
 
       case maybeGeminiResponse of

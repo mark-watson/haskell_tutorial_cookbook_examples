@@ -1,0 +1,45 @@
+cabal-version:      2.4
+name:              gemini
+version:           0.1.0.0
+-- synopsis:
+-- description:
+license:            MIT
+license-file:       LICENSE
+author:             Bard
+maintainer:         Bard
+-- copyright:
+-- category:
+build-type:          Simple
+extra-source-files:  CHANGELOG.md
+
+executable gemini
+  main-is:             Main.hs
+  -- other-modules:
+  -- other-extensions:
+  build-depends:       base >= 4.7 && < 5
+                     , aeson
+                     , bytestring
+                     , text
+                     , http-client
+                     , http-client-tls
+                     , http-types
+                     , directory
+                     , vector
+  if os(darwin)
+      ghc-options:
+      ld-options:
+
+  -- Language extensions used in the code
+  default-extensions:
+    OverloadedStrings
+    DeriveGeneric
+    LambdaCase
+    DeriveAnyClass
+
+  program-default-options
+  hsc2hs: --with-hsc2hs=/opt/homebrew/bin/hsc2hs
+  
+  -- Compiler flags
+  ghc-options: -Wall -O2
+
+                     
