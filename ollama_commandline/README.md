@@ -1,4 +1,4 @@
-# Comand line tool to access local Ollama LLM server
+# Command line tool to access local Ollama LLM server
 
 Run example:
 
