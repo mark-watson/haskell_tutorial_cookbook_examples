@@ -1,0 +1,36 @@
+name:                ollama-client
+version:             0.1.0.0
+synopsis:            A simple client for Ollama API
+description:         A Haskell client to interact with local Ollama API
+license:             MIT
+license-file:        LICENSE
+author:              Your Name
+maintainer:          your.email@example.com
+category:            AI
+build-type:          Simple
+cabal-version:       >=1.10
+
+executable ollama-client
+  main-is:             Main.hs
+  build-depends:       base >= 4.7 && < 5
+                    , aeson
+                    , http-client
+                    , text
+                    , http-types
+                    , vector
+  if os(darwin)
+      ghc-options:
+      ld-options:
+
+  -- Language extensions used in the code
+  default-extensions:
+    OverloadedStrings
+    DeriveGeneric
+    LambdaCase
+    DeriveAnyClass
+
+  program-default-options
+  hsc2hs: --with-hsc2hs=/opt/homebrew/bin/hsc2hs
+  
+  -- Compiler flags
+  ghc-options: -Wall -O2
