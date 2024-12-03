@@ -8,8 +8,6 @@ import Data.Aeson (FromJSON, ToJSON)
 import GHC.Generics
 import Network.HTTP.Client (newManager, httpLbs, parseRequest, Request(..), RequestBody(..), responseBody, responseStatus, defaultManagerSettings)
 import Network.HTTP.Types.Status (statusCode)
---import qualified Data.Text as T
---import Data.Text.Encoding (encodeUtf8)
 
 data OllamaRequest = OllamaRequest
   { model :: String
