@@ -44,7 +44,7 @@ main :: IO ()
 main = do
   args <- getArgs
   case args of
-    [] -> putStrLn "Error: Please provide a prompt as a command-line argument."
+    [] -> putStrLn "Error: Please provide a prompt as a command line argument."
     (arg:_) -> do  --  Extract the argument directly
       apiKey <- getEnv "GOOGLE_API_KEY"
 
