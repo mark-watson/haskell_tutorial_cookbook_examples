@@ -56,10 +56,20 @@ findPlaces text = do
     -- Strip leading and trailing whitespace from each place name
     return $ map (T.unpack . T.strip . T.pack) places
 
+findPeople :: String -> IO [String]
+findPeople text = do
+    let prompt = "Extract only the person names separated by commas from the following text:\n\n" ++ text
+    response <- completionRequestToString prompt
+    let people = filter (not . null) $ map T.unpack $ splitOn "," (T.pack response)
+    return $ map (T.unpack . T.strip . T.pack) people
+
 main :: IO ()
 main = do
     response <- completionRequestToString "Write a hello world program in Haskell"
     putStrLn response
 
     places <- findPlaces "I visited London, Paris, and New York last year."
-    print places 
+    print places
+
+    people <- findPeople "John Smith met with Sarah Johnson and Michael Brown at the conference."
+    print people
