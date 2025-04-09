@@ -14,7 +14,7 @@ build:
 	cd StateMonad; stack build
 	cd TextProcessing; stack build
 	cd Timers; stack build
-	cd WebScraping; stack build
+	cd WebScraping; cabal build
 	echo "There may be problems compiling the getenerated LexData source files in LexiconData.hs:"
 	cd FastTag; stack build
 
