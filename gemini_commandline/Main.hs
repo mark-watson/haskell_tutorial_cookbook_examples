@@ -3,20 +3,21 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 
 import System.Environment (getArgs, getEnv)
-import qualified Data.Aeson as Aeson -- Used for Aeson.encode, Aeson.object etc.
-import Data.Aeson (FromJSON, ToJSON, eitherDecode) -- Specific functions needed
-import GHC.Generics (Generic) -- Needed for deriving ToJSON/FromJSON
+import qualified Data.Aeson as Aeson
+import Data.Aeson (FromJSON, ToJSON, eitherDecode)
+import GHC.Generics (Generic)
 import Network.HTTP.Client.TLS (tlsManagerSettings)
 import Network.HTTP.Client (newManager, httpLbs, parseRequest, Manager, Request(..), RequestBody(..), Response(..), responseStatus)
 import Network.HTTP.Types.Status (statusCode)
-import qualified Data.Text as T
+-- Replace qualified import with explicit import list:
+import Data.Text (Text, pack, unpack, splitOn, strip, null)
 import Data.Text.Encoding (encodeUtf8)
 import Control.Exception (SomeException, handle)
 
 -- --- Request Data Types ---
 
 data RequestPart = RequestPart
-  { reqText :: T.Text  -- Using reqText to avoid name clash with Response Part's text
+  { reqText :: Text  -- Using reqText to avoid name clash with Response Part's text
   } deriving (Show, Generic)
 
 instance ToJSON RequestPart where
@@ -81,14 +82,14 @@ completion :: String             -- ^ Google API Key
            -> IO (Either String String) -- ^ Left error message or Right completion text
 completion apiKey manager promptText = do
   initialRequest <- parseRequest "https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent"
-  let reqContent = RequestContent { reqParts = [RequestPart { reqText = T.pack promptText }] }
+  let reqContent = RequestContent { reqParts = [RequestPart { reqText = pack promptText }] }
   let genConfig = GenerationConfig { temperature = 0.1, maxOutputTokens = 800 }
   let apiRequest = GeminiApiRequest { contents = [reqContent], generationConfig = genConfig }
 
   let request = initialRequest
         { requestHeaders =
             [ ("Content-Type", "application/json")
-            , ("x-goog-api-key", encodeUtf8 $ T.pack apiKey)
+            , ("x-goog-api-key", encodeUtf8 $ pack apiKey)
             ]
         , method = "POST"
         , requestBody = RequestBodyLBS $ Aeson.encode apiRequest
@@ -119,15 +120,83 @@ completion apiKey manager promptText = do
       let err = "Error: API request failed with status " ++ show (statusCode status) ++ "\nBody: " ++ show body
       return $ Left err
 
+-- | Extracts potential place names from text using the Gemini API.
+findPlaces :: String             -- ^ Google API Key
+           -> Manager            -- ^ HTTP Manager
+           -> String             -- ^ The input text to analyze (Renamed from text)
+           -> IO (Either String [String]) -- ^ Left error or Right list of places
+findPlaces apiKey manager inputText = do
+    -- Renamed parameter text -> inputText
+    let prompt = "Extract only the place names strictly separated by commas from the following text. Do not include any explanation or introduction. Example: London,Paris,Tokyo\n\nText:\"" ++ inputText ++ "\""
+    apiResult <- completion apiKey manager prompt
+
+    return $ case apiResult of
+        Left err -> Left ("API call failed in findPlaces: " ++ err)
+        Right responseText ->
+            let -- Use Text functions directly (removed T. prefix)
+                rawParts = splitOn (pack ",") (pack responseText)
+                strippedParts = map strip rawParts
+                nonEmptyParts = filter (not . Data.Text.null) strippedParts -- Use Data.Text.null to be explicit if Text type is inferred
+                -- Convert final list back to [String]
+                places = map unpack nonEmptyParts
+            in Right places
+
+-- | Extracts potential person names from text using the Gemini API.
+findPeople :: String             -- ^ Google API Key
+           -> Manager            -- ^ HTTP Manager
+           -> String             -- ^ The input text to analyze (Renamed from text)
+           -> IO (Either String [String]) -- ^ Left error or Right list of people
+findPeople apiKey manager inputText = do
+    -- Renamed parameter text -> inputText
+    let prompt = "Extract only the person names strictly separated by commas from the following text. Do not include any explanation or introduction. Example: Alice,Bob,Charlie\n\nText:\"" ++ inputText ++ "\""
+    apiResult <- completion apiKey manager prompt
+
+    return $ case apiResult of
+        Left err -> Left ("API call failed in findPeople: " ++ err)
+        Right responseText ->
+            let -- Use Text functions directly (removed T. prefix)
+                rawParts = splitOn (pack ",") (pack responseText)
+                strippedParts = map strip rawParts
+                nonEmptyParts = filter (not . Data.Text.null) strippedParts -- Use Data.Text.null to be explicit
+                people = map unpack nonEmptyParts
+            in Right people
+
 -- --- Main Function ---
 
 main :: IO ()
 main = do
   args <- getArgs
   case args of
-    [] -> putStrLn "Error: Please provide a prompt as a command line argument."
+    -- If no args, run demo extraction on sample text
+    [] -> do 
+        putStrLn "No prompt provided. Running demo extraction on sample text:"
+        let sampleText = "Dr. Evelyn Reed went to London last week with her colleague Bob Smith. They visited the Tower Bridge and met someone near Paris, Texas."
+        putStrLn $ "Sample Text: \"" ++ sampleText ++ "\"\n"
+        
+        apiKeyResult <- lookupEnv "GOOGLE_API_KEY"
+        case apiKeyResult of
+            Nothing -> putStrLn "Error: GOOGLE_API_KEY environment variable not set."
+            Just apiKey -> do
+                manager <- newManager tlsManagerSettings
+
+                -- Find Places
+                putStrLn "Attempting to find places..."
+                placesResult <- findPlaces apiKey manager sampleText
+                case placesResult of
+                    Left err -> putStrLn $ "Error finding places: " ++ err
+                    Right places -> putStrLn $ "Found Places: " ++ show places
+
+                putStrLn "\nAttempting to find people..."
+                -- Find People
+                peopleResult <- findPeople apiKey manager sampleText
+                case peopleResult of
+                    Left err -> putStrLn $ "Error finding people: " ++ err
+                    Right people -> putStrLn $ "Found People: " ++ show people
+
+    -- If args provided, run original completion behavior
     (promptArg:_) -> do
-      apiKeyResult <- lookupEnv "GOOGLE_API_KEY" -- Using lookupEnv for safer handling
+      putStrLn "Prompt provided. Running direct completion:"
+      apiKeyResult <- lookupEnv "GOOGLE_API_KEY"
       case apiKeyResult of
         Nothing -> putStrLn "Error: GOOGLE_API_KEY environment variable not set."
         Just apiKey -> do
