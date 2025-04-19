@@ -6,12 +6,13 @@ module BraveSearch
   ) where
 
 import Network.HTTP.Simple
+import Data.Text.Encoding (encodeUtf8)
 import Data.Aeson
 import qualified Data.Text as T
 import Control.Exception (try)
 import Network.HTTP.Client (HttpException)
 import qualified Data.ByteString.Char8 as BS
-import qualified Data.ByteString.Lazy.Char8 as LBS
+-- removed unused import Data.ByteString.Lazy.Char8
 
 data SearchResponse = SearchResponse
   { query :: QueryInfo
@@ -57,32 +58,39 @@ instance FromJSON WebResult where
     <*> v .:? "url"
     <*> v .:? "description"
 
-getSearchSuggestions :: String -> String -> IO (Either String [T.Text])
+-- | Perform a Brave Search with the given API key (as raw bytes) and text query.
+getSearchSuggestions :: BS.ByteString -> T.Text -> IO (Either T.Text [T.Text])
 getSearchSuggestions apiKey query = do
-  let url = "https://api.search.brave.com/res/v1/web/search?q=" ++ query ++ "&country=US&count=5"
-  
-  request <- parseRequest url
-  let requestWithHeaders = setRequestHeader "Accept" ["application/json"]
-                         $ setRequestHeader "X-Subscription-Token" [BS.pack apiKey]
-                         $ request
-  
-  result <- try $ httpLBS requestWithHeaders
-  
+  -- Build base request
+  let baseUrl = "https://api.search.brave.com/res/v1/web/search"
+  request0 <- parseRequest baseUrl
+  -- Add query parameters (URL-encoded) and headers
+  let request1 = setRequestQueryString
+                   [ ("q", Just $ encodeUtf8 query)
+                   , ("country", Just "US")
+                   , ("count", Just "5")
+                   ]
+                   request0
+      request  = setRequestHeader "Accept" ["application/json"]
+               $ setRequestHeader "X-Subscription-Token" [apiKey]
+               $ request1
+
+  result <- try $ httpLBS request
+
   case result of
-    Left e -> return $ Left $ "Network error: " ++ show (e :: HttpException)
-    Right response -> do
-      let statusCode = getResponseStatusCode response
-      if statusCode /= 200
-        then return $ Left $ "HTTP error: " ++ show statusCode
-        else do
-          let body = getResponseBody response
-          case eitherDecode body of
-            Left err -> return $ Left $ "JSON parsing error: " ++ err
-            Right searchResponse@SearchResponse{..} -> do
-              let originalQuery = original query
-                  webResults = results web
-              let suggestions = "Original Query: " <> originalQuery : map formatResult webResults
-              return $ Right suggestions
+    Left e -> return . Left $ T.pack $ "Network error: " ++ show (e :: HttpException)
+    Right response ->
+      let status = getResponseStatusCode response
+      in if status /= 200
+           then return . Left $ T.pack $ "HTTP error: " ++ show status
+           else case eitherDecode (getResponseBody response) of
+                  Left err -> return . Left $ T.pack $ "JSON parsing error: " ++ err
+                  Right SearchResponse{..} ->
+                    let originalQuery = original query
+                        webResults    = results web
+                        suggestions   = ("Original Query: " <> originalQuery)
+                                      : map formatResult webResults
+                    in return $ Right suggestions
 
 formatResult :: WebResult -> T.Text
 formatResult WebResult{..} =
