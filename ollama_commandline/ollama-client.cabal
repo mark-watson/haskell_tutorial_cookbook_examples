@@ -12,12 +12,14 @@ cabal-version:       >=1.10
 
 executable ollama-client
   main-is:             Main.hs
-  build-depends:       base >= 4.7 && < 5
-                    , aeson
-                    , http-client
-                    , text
-                    , http-types
-                    , vector
+  build-depends:
+    base >= 4.7 && < 5,
+    aeson,
+    http-client,
+    text,
+    http-types,
+    vector,
+    optparse-applicative
   if os(darwin)
       ghc-options:
       ld-options:
