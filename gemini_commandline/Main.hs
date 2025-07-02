@@ -120,65 +120,46 @@ completion apiKey manager promptText = do
       let err = "Error: API request failed with status " ++ show (statusCode status) ++ "\nBody: " ++ show body
       return $ Left err
 
--- | Extracts potential place names from text using the Gemini API.
-findPlaces :: String             -- ^ Google API Key
-           -> Manager            -- ^ HTTP Manager
-           -> String             -- ^ The input text to analyze (Renamed from text)
-           -> IO (Either String [String]) -- ^ Left error or Right list of places
-findPlaces apiKey manager inputText = do
-    -- Renamed parameter text -> inputText
-    let prompt = "Extract only the place names strictly separated by commas from the following text. Do not include any explanation or introduction. Example: London,Paris,Tokyo\n\nText:\"" ++ inputText ++ "\""
+-- | A generic function to extract entities from text using a specific prompt pattern.
+extractEntities :: String             -- ^ Type of entity to extract (e.g., "place names")
+                -> String             -- ^ Example for the prompt (e.g., "London,Paris,Tokyo")
+                -> String             -- ^ Google API Key
+                -> Manager            -- ^ HTTP Manager
+                -> String             -- ^ The input text to analyze
+                -> IO (Either String [String]) -- ^ Left error or Right list of entities
+extractEntities entityType example apiKey manager inputText = do
+    let prompt = "Extract only the " ++ entityType ++ " strictly separated by commas from the following text. Do not include any explanation or introduction. Example: " ++ example ++ "\n\nText:\"" ++ inputText ++ "\""
     apiResult <- completion apiKey manager prompt
 
     return $ case apiResult of
-        Left err -> Left ("API call failed in findPlaces: " ++ err)
+        Left err -> Left ("API call failed in extractEntities for " ++ entityType ++ ": " ++ err)
         Right responseText ->
-            let -- Use Text functions directly (removed T. prefix)
-                rawParts = splitOn (pack ",") (pack responseText)
+            let rawParts = splitOn (pack ",") (pack responseText)
                 strippedParts = map strip rawParts
-                nonEmptyParts = filter (not . Data.Text.null) strippedParts -- Use Data.Text.null to be explicit if Text type is inferred
-                -- Convert final list back to [String]
-                places = map unpack nonEmptyParts
-            in Right places
+                nonEmptyParts = filter (not . Data.Text.null) strippedParts
+                entities = map unpack nonEmptyParts
+            in Right entities
+
+-- | Extracts potential place names from text using the Gemini API.
+findPlaces :: String             -- ^ Google API Key
+           -> Manager            -- ^ HTTP Manager
+           -> String             -- ^ The input text to analyze
+           -> IO (Either String [String]) -- ^ Left error or Right list of places
+findPlaces = extractEntities "place names" "London,Paris,Tokyo"
 
 -- | Extracts potential person names from text using the Gemini API.
 findPeople :: String             -- ^ Google API Key
            -> Manager            -- ^ HTTP Manager
-           -> String             -- ^ The input text to analyze (Renamed from text)
+           -> String             -- ^ The input text to analyze
            -> IO (Either String [String]) -- ^ Left error or Right list of people
-findPeople apiKey manager inputText = do
-    -- Renamed parameter text -> inputText
-    let prompt = "Extract only the person names strictly separated by commas from the following text. Do not include any explanation or introduction. Example: Alice,Bob,Charlie\n\nText:\"" ++ inputText ++ "\""
-    apiResult <- completion apiKey manager prompt
-
-    return $ case apiResult of
-        Left err -> Left ("API call failed in findPeople: " ++ err)
-        Right responseText ->
-            let -- Use Text functions directly (removed T. prefix)
-                rawParts = splitOn (pack ",") (pack responseText)
-                strippedParts = map strip rawParts
-                nonEmptyParts = filter (not . Data.Text.null) strippedParts -- Use Data.Text.null to be explicit
-                people = map unpack nonEmptyParts
-            in Right people
+findPeople = extractEntities "person names" "Alice,Bob,Charlie"
 
 -- | Extracts potential company names from text using the Gemini API.
 findCompanyNames :: String             -- ^ Google API Key
                  -> Manager            -- ^ HTTP Manager
                  -> String             -- ^ The input text to analyze
                  -> IO (Either String [String]) -- ^ Left error or Right list of companies
-findCompanyNames apiKey manager inputText = do
-    let prompt = "Extract only the company names strictly separated by commas from the following text. Do not include any explanation or introduction. Example: Google,Apple,Microsoft\n\nText:\"" ++ inputText ++ "\""
-    apiResult <- completion apiKey manager prompt
-
-    return $ case apiResult of
-        Left err -> Left ("API call failed in findCompanyNames: " ++ err)
-        Right responseText ->
-            let
-                rawParts = splitOn (pack ",") (pack responseText)
-                strippedParts = map strip rawParts
-                nonEmptyParts = filter (not . Data.Text.null) strippedParts
-                companies = map unpack nonEmptyParts
-            in Right companies
+findCompanyNames = extractEntities "company names" "Google,Apple,Microsoft"
 
 -- --- Main Function ---
 
