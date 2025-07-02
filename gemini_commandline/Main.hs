@@ -161,6 +161,25 @@ findPeople apiKey manager inputText = do
                 people = map unpack nonEmptyParts
             in Right people
 
+-- | Extracts potential company names from text using the Gemini API.
+findCompanyNames :: String             -- ^ Google API Key
+                 -> Manager            -- ^ HTTP Manager
+                 -> String             -- ^ The input text to analyze
+                 -> IO (Either String [String]) -- ^ Left error or Right list of companies
+findCompanyNames apiKey manager inputText = do
+    let prompt = "Extract only the company names strictly separated by commas from the following text. Do not include any explanation or introduction. Example: Google,Apple,Microsoft\n\nText:\"" ++ inputText ++ "\""
+    apiResult <- completion apiKey manager prompt
+
+    return $ case apiResult of
+        Left err -> Left ("API call failed in findCompanyNames: " ++ err)
+        Right responseText ->
+            let
+                rawParts = splitOn (pack ",") (pack responseText)
+                strippedParts = map strip rawParts
+                nonEmptyParts = filter (not . Data.Text.null) strippedParts
+                companies = map unpack nonEmptyParts
+            in Right companies
+
 -- --- Main Function ---
 
 main :: IO ()
@@ -168,11 +187,11 @@ main = do
   args <- getArgs
   case args of
     -- If no args, run demo extraction on sample text
-    [] -> do 
+    [] -> do
         putStrLn "No prompt provided. Running demo extraction on sample text:"
-        let sampleText = "Dr. Evelyn Reed went to London last week with her colleague Bob Smith. They visited the Tower Bridge and met someone near Paris, Texas."
+        let sampleText = "Dr. Evelyn Reed from Acme Corporation went to London last week with her colleague Bob Smith. They visited the Tower Bridge and met someone near Paris, Texas."
         putStrLn $ "Sample Text: \"" ++ sampleText ++ "\"\n"
-        
+
         apiKeyResult <- lookupEnv "GOOGLE_API_KEY"
         case apiKeyResult of
             Nothing -> putStrLn "Error: GOOGLE_API_KEY environment variable not set."
@@ -193,6 +212,13 @@ main = do
                     Left err -> putStrLn $ "Error finding people: " ++ err
                     Right people -> putStrLn $ "Found People: " ++ show people
 
+                putStrLn "\nAttempting to find company names..."
+                -- Find Companies
+                companiesResult <- findCompanyNames apiKey manager sampleText
+                case companiesResult of
+                    Left err -> putStrLn $ "Error finding companies: " ++ err
+                    Right companies -> putStrLn $ "Found Companies: " ++ show companies
+
     -- If args provided, run original completion behavior
     (promptArg:_) -> do
       putStrLn "Prompt provided. Running direct completion:"
@@ -206,6 +232,7 @@ main = do
           case result of
             Left errMsg -> putStrLn $ "API Call Failed:\n" ++ errMsg
             Right completionText -> putStrLn $ "Response:\n\n" ++ completionText
+
 
 -- Helper function (optional but good practice)
 lookupEnv :: String -> IO (Maybe String)
