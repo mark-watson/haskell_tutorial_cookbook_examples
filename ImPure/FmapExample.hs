@@ -1,5 +1,6 @@
 module Main where
 
+-- Reads a file and splits on whitespace, returning the list of words.
 fileToWords fileName = do
   fileText <- readFile fileName
   return $ words fileText

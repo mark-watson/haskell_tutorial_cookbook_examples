@@ -1,3 +1,5 @@
+-- Minimal Gemini command-line demo; calls the API and extracts simple entities
+-- Run with no args for a demo, or pass a prompt; set `GOOGLE_API_KEY` in your environment
 {-# LANGUAGE DeriveGeneric       #-}
 {-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -81,11 +83,13 @@ completion :: String             -- ^ Google API Key
            -> String             -- ^ The user's prompt text
            -> IO (Either String String) -- ^ Left error message or Right completion text
 completion apiKey manager promptText = do
-  initialRequest <- parseRequest "https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent"
+  -- Build the JSON payload expected by the Gemini API
+  initialRequest <- parseRequest "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent"
   let reqContent = RequestContent { reqParts = [RequestPart { reqText = pack promptText }] }
   let genConfig = GenerationConfig { temperature = 0.1, maxOutputTokens = 800 }
   let apiRequest = GeminiApiRequest { contents = [reqContent], generationConfig = genConfig }
 
+  -- Prepare the HTTP POST request with headers and body
   let request = initialRequest
         { requestHeaders =
             [ ("Content-Type", "application/json")
@@ -95,22 +99,25 @@ completion apiKey manager promptText = do
         , requestBody = RequestBodyLBS $ Aeson.encode apiRequest
         }
 
+  -- Send the request using the shared HTTP manager
   response <- httpLbs request manager
   let status = responseStatus response
       body = responseBody response
 
+  -- Check HTTP status and decode JSON into our Haskell types
   if statusCode status == 200
     then do
       case eitherDecode body :: Either String GeminiApiResponse of
         Left err -> return $ Left ("Error decoding JSON response: " ++ err)
         Right geminiResponse ->
+          -- Extract first candidate and its first text part
           case candidates geminiResponse of
             (candidate:_) ->
               case parts (content candidate) of
                 (part:_) -> return $ Right (text part)
                 [] -> return $ Left "Error: Received candidate with no parts."
             [] ->
-              -- Check for blocking information if no candidates are present
+              -- No candidates: check if the prompt was blocked and report why
               case promptFeedback geminiResponse of
                 Just pf -> case blockReason pf of
                              Just reason -> return $ Left ("API Error: Blocked - " ++ reason)
@@ -128,9 +135,11 @@ extractEntities :: String             -- ^ Type of entity to extract (e.g., "pla
                 -> String             -- ^ The input text to analyze
                 -> IO (Either String [String]) -- ^ Left error or Right list of entities
 extractEntities entityType example apiKey manager inputText = do
+    -- Build a simple, strict prompt and call the completion helper
     let prompt = "Extract only the " ++ entityType ++ " strictly separated by commas from the following text. Do not include any explanation or introduction. Example: " ++ example ++ "\n\nText:\"" ++ inputText ++ "\""
     apiResult <- completion apiKey manager prompt
 
+    -- Parse a comma-separated list into `[String]`, trimming empty items
     return $ case apiResult of
         Left err -> Left ("API call failed in extractEntities for " ++ entityType ++ ": " ++ err)
         Right responseText ->
@@ -165,6 +174,7 @@ findCompanyNames = extractEntities "company names" "Google,Apple,Microsoft"
 
 main :: IO ()
 main = do
+  -- CLI entry: with no args runs demo; with a prompt does direct completion
   args <- getArgs
   case args of
     -- If no args, run demo extraction on sample text
@@ -173,6 +183,7 @@ main = do
         let sampleText = "Dr. Evelyn Reed from Acme Corporation went to London last week with her colleague Bob Smith. They visited the Tower Bridge and met someone near Paris, Texas."
         putStrLn $ "Sample Text: \"" ++ sampleText ++ "\"\n"
 
+        -- Read API key from env; create a single `Manager` for all requests
         apiKeyResult <- lookupEnv "GOOGLE_API_KEY"
         case apiKeyResult of
             Nothing -> putStrLn "Error: GOOGLE_API_KEY environment variable not set."
@@ -208,13 +219,15 @@ main = do
         Nothing -> putStrLn "Error: GOOGLE_API_KEY environment variable not set."
         Just apiKey -> do
           manager <- newManager tlsManagerSettings
+          -- Single completion call for the provided prompt
           result <- completion apiKey manager promptArg
 
+          -- Print either an error message or the model's response
           case result of
             Left errMsg -> putStrLn $ "API Call Failed:\n" ++ errMsg
             Right completionText -> putStrLn $ "Response:\n\n" ++ completionText
 
 
--- Helper function (optional but good practice)
+-- Helper: safely read an environment variable (returns `Nothing` if missing)
 lookupEnv :: String -> IO (Maybe String)
 lookupEnv name = handle (\(_ :: SomeException) -> return Nothing) $ Just <$> getEnv name

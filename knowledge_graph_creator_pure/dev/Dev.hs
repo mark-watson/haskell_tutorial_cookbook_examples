@@ -27,6 +27,7 @@ import Data.Typeable (typeOf)
 
 import Database.SQLite.Simple
 
+-- Quick sanity checks for the HTTP web services
 testWebServices :: IO ()
 testWebServices
   -- JSON from Coref server (written in Python)
@@ -36,6 +37,7 @@ testWebServices
   s2 <- nlpClient "John Smith went to Mexico."
   putStrLn $ s2
 
+-- Local NLP and entity extraction experiments
 testNlp = do
   let s3 =
         "The sport of hocky is about 100 years old by ahdi dates. American Football is a newer sport. Programming is fun. Congress passed a new budget that might help the economy. The frontier initially was a value path. The ai research of john mccarthy."
@@ -64,6 +66,7 @@ testNlp = do
     textToTriples "test_data/test1.txt" "test_data/test1.meta"
   putStrLn triples_as_string
 
+-- Dev entry point: runs batch processing on `test_data`
 main :: IO ()
 main = do
   putStrLn "KGcreator: files -> RDF triples and Cypher Neo4j data"

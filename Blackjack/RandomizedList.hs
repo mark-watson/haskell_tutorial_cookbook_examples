@@ -1,6 +1,7 @@
+-- Utility: random shuffle for a list, producing `IO [a]`
+-- Uses an in-place Fisher–Yates style shuffle with `IOArray`
 module RandomizedList (randomizedList) where
   
-
 import System.Random
 import Data.Array.IO
 import Control.Monad

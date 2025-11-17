@@ -10,6 +10,10 @@ The are a few limitations in this implementation:
 
 stack build --exec Blackjack
 
+or:
+
+cabal run Blackjack
+
 Notes:
 
 - Start by entering the number of players (besides the game user) at the table (a good value is 1)

@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- reference: http://www.serpentine.com/wreq/tutorial.html
+-- Simple HTTP client to a local NLP service (see wreq tutorial)
 module NlpWebClient
   ( nlpClient
   ) where
@@ -11,8 +11,10 @@ import Data.Maybe (fromJust)
 import Network.URI.Encode (encode)
 import Network.Wreq
 
+-- Base URL for the NLP server; `query` is URL-encoded and appended
 base_url = "http://127.0.0.1:8008?text="
 
+-- Call the NLP server with `query` and return response body as String
 nlpClient :: [Char] -> IO [Char]
 nlpClient query = do
   putStrLn $ "\n\n***  Processing " ++ query

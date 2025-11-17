@@ -1,3 +1,4 @@
+-- Directory iteration helpers for simple batch processing
 module DirUtils
   ( iterateOverDir
   , iterateOverDirWithFilePattern
@@ -6,6 +7,7 @@ module DirUtils
 import Control.Monad (forM, mapM)
 import System.Directory (getCurrentDirectory, getDirectoryContents)
 
+-- Apply `fn` to each file in `dir_path` (skips `.` and `..`)
 iterateOverDir :: FilePath -> ([Char] -> IO b) -> IO ()
 iterateOverDir dir_path fn = do
   files <- getDirectoryContents dir_path :: IO [FilePath]
@@ -13,6 +15,7 @@ iterateOverDir dir_path fn = do
   let filtered_files = filter (/= "..") $ filter (/= ".") files
   mapM_ fn filtered_files
 
+-- Apply `fn` to each file whose name matches `filterFn`, passing full paths
 iterateOverDirWithFilePattern dirPath filterFn fn = do
   files <- getDirectoryContents dirPath :: IO [FilePath]
   print files

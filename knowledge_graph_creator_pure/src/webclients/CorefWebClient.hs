@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- reference: http://www.serpentine.com/wreq/tutorial.html
+-- Simple HTTP client to a local coreference resolution service
 module CorefWebClient
   ( corefClient
   ) where
@@ -11,8 +11,10 @@ import Data.Maybe (fromJust)
 import Network.URI.Encode (encode)
 import Network.Wreq
 
+-- Base URL for the coref server; `query` is URL-encoded and appended
 base_url = "http://127.0.0.1:8000?text="
 
+-- Call the coref server with `query` and return response body as String
 corefClient :: [Char] -> IO [Char]
 corefClient query = do
   putStrLn $ "\n\n***  Processing " ++ (encode query)

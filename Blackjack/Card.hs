@@ -1,3 +1,5 @@
+-- Card model: defines `Rank`, `Suit`, and `Card`, with helpers
+-- `orderedCardDeck` builds a deterministic deck; `cardValue` maps ranks to scores
 module Card (Card, Rank, Suit, orderedCardDeck, cardValue) where
 
 import Data.Maybe (fromMaybe)
@@ -21,6 +23,8 @@ rankMap = fromList [(Two,2), (Three,3), (Four,4), (Five,5),
                     (Ten,10), (Jack,10), (Queen,10),
                     (King,10), (Ace,11)]
 
+-- Deterministic deck: list-comprehension over all ranks and a suit range
+-- Adjust the suit range if you want to include all suits (Enum ranges)
 orderedCardDeck :: [Card]
 orderedCardDeck = [Card rank suit | rank <- keys rankMap,
                                     suit <- [Hearts .. Clubs]]

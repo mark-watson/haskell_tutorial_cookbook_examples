@@ -1,17 +1,20 @@
 module Main where
   
+-- Prompts for an Int, binds with `let` inside a do-block, and prints the value plus 2.
 example1 = do  -- good style
   putStrLn "Enter an integer number:"
   s <- getLine
   let number = (read s :: Int) + 2
   putStrLn $ "Number plus 2 = " ++ (show number)
 
+-- Shows `let ... in` inside a do-block (discouraged); the binding only scopes the next expression.
 example2 = do  -- avoid using "in" inside a do statement
   putStrLn "Enter an integer number:"
   s <- getLine
   let number = (read s :: Int) + 2 in
     putStrLn $ "Number plus 2 = " ++ (show number)
 
+-- Uses a nested do with `let ... in`; still better to use `let` without `in` for multi-statement blocks.
 example3 = do  -- avoid using "in" inside a do statement
   putStrLn "Enter an integer number:"
   s <- getLine

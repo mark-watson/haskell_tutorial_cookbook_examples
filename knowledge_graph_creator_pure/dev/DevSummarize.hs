@@ -1,3 +1,4 @@
+-- Dev tool: quick experiments with summarization and category evidence
 module Main where
 
 -- this file is just for testing/dev
@@ -13,6 +14,7 @@ import System.Directory (getDirectoryContents)
 -- for debug:
 import Data.Typeable (typeOf)
 
+-- Show summaries and the category evidence driving them
 testNlp = do
   s1 <- filePathToString "test_data/test1.txt"
   putStrLn "\nSummaries:\n"
@@ -39,6 +41,7 @@ testNlp = do
       bestCats = bestCategories words
   print bestCats
 
+-- Dev entry point for summarization demos
 main :: IO ()
 main = do
   putStrLn "DevSummarize:"

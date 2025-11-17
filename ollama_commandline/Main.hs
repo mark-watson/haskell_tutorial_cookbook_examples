@@ -1,12 +1,20 @@
+-- Simple command-line client for Ollama's local API
+-- Usage: run as `Main "<prompt>" [model]` or `runghc Main.hs "<prompt>" [model]`. Default model: `llama3.2:latest`
+-- LANGUAGE pragmas enable features used below
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedRecordDot #-}
-{-# LANGUAGE DeriveGeneric #-} -- Added DeriveGeneric for clarity, though Generic is imported
+{-# LANGUAGE DeriveGeneric #-}
 
-import Control.Monad (when) -- Import when
+-- Core utilities
+import Control.Monad (when)
 import System.Environment (getArgs)
+
+-- JSON support
 import qualified Data.Aeson as Aeson
 import Data.Aeson (FromJSON, ToJSON)
-import GHC.Generics (Generic) -- Explicitly import Generic
+import GHC.Generics (Generic)
+
+-- HTTP client
 import Network.HTTP.Client
   ( newManager
   , httpLbs
@@ -16,81 +24,87 @@ import Network.HTTP.Client
   , responseBody
   , responseStatus
   , defaultManagerSettings
-  , Manager -- Import Manager type
+  , Manager
   )
-import Network.HTTP.Types.Status (statusIsSuccessful) -- Import statusIsSuccessful
+import Network.HTTP.Types.Status (statusIsSuccessful)
 
--- Data types for Ollama interaction
+-- Types that mirror Ollama's request and response JSON
 data OllamaRequest = OllamaRequest
-  { model :: String
-  , prompt :: String
-  , stream :: Bool
-  } deriving (Show, Generic, ToJSON) -- Derive Generic and ToJSON
+  { model :: String        -- name/tag of the model to use
+  , prompt :: String       -- user input sent to the model
+  , stream :: Bool         -- stream tokens or return a single final string
+  } deriving (Show, Generic, ToJSON)
 
 data OllamaResponse = OllamaResponse
   { model :: String
   , created_at :: String
-  , response :: String -- This matches the actual field name in the JSON
+  , response :: String     -- the generated text from the model
   , done :: Bool
-  , done_reason :: Maybe String -- done_reason might be null/missing in some responses, using Maybe is safer
-  } deriving (Show, Generic, FromJSON) -- Derive Generic and FromJSON
+  , done_reason :: Maybe String -- may be missing; use Maybe
+  } deriving (Show, Generic, FromJSON)
 
--- Function to call the Ollama API
+-- Call Ollama's local API and decode the JSON response
 callOllama :: Manager -> String -> String -> IO (Either String OllamaResponse)
 callOllama manager modelName userPrompt = do
-  -- Note: parseRequest throws exceptions on invalid URLs, which is acceptable here.
+  -- Build the POST request to /api/generate
   initialRequest <- parseRequest "http://localhost:11434/api/generate"
 
   let ollamaRequestBody = OllamaRequest
         { model = modelName
         , prompt = userPrompt
-        , stream = False -- Keeping stream as False for a single response
+        , stream = False     -- single complete response
         }
 
   let request = initialRequest
         { requestHeaders = [("Content-Type", "application/json")]
         , method = "POST"
-        , requestBody = RequestBodyLBS $ Aeson.encode ollamaRequestBody
+        , requestBody = RequestBodyLBS $ Aeson.encode ollamaRequestBody -- encode as JSON
         }
 
-  -- httpLbs also throws exceptions on network errors, which `main` handles implicitly
+  -- Send the request and get the HTTP response
   httpResponse <- httpLbs request manager
 
   let status = responseStatus httpResponse
       body = responseBody httpResponse
 
-  if statusIsSuccessful status -- Use statusIsSuccessful for clarity
+  if statusIsSuccessful status
     then do
+      -- Try to decode the JSON body into our Haskell type
       let maybeOllamaResponse = Aeson.decode body :: Maybe OllamaResponse
       case maybeOllamaResponse of
         Just ollamaResponse -> return $ Right ollamaResponse
         Nothing -> return $ Left $ "Error: Failed to parse JSON response. Body: " ++ show body
-    else do
+    else
+      -- Non-2xx HTTP status
       return $ Left $ "Error: HTTP request failed with status " ++ show status ++ ". Body: " ++ show body
 
 main :: IO ()
 main = do
+  -- Read command-line args: prompt and optional model name
   args <- getArgs
   case args of
     [] -> putStrLn "Usage: <program_name> <prompt> [model_name]"
     (promptArg:modelArgs) -> do
+      -- Choose model: use user-provided or default
       let modelName = case modelArgs of
                         (m:_) -> m
-                        []    -> "llama3.2:latest" -- Default model
+                        []    -> "llama3.2:latest"
 
+      -- Create an HTTP connection manager
       manager <- newManager defaultManagerSettings
 
       putStrLn $ "Sending prompt '" ++ promptArg ++ "' to model '" ++ modelName ++ "'..."
 
+      -- Make the API call
       result <- callOllama manager modelName promptArg
 
+      -- Handle success or error
       case result of
         Right ollamaResponse -> do
-          -- No need for liftIO here, putStrLn is already IO
           putStrLn "\n--- Response ---"
           putStrLn ollamaResponse.response
-          when (ollamaResponse.done_reason /= Nothing) $ -- Check if done_reason is present
-              putStrLn $ "\nDone reason: " ++ show ollamaResponse.done_reason -- Show the reason if present
+          -- Print reason if present
+          when (ollamaResponse.done_reason /= Nothing) $
+              putStrLn $ "\nDone reason: " ++ show ollamaResponse.done_reason
         Left err -> do
-          -- No need for liftIO here either
           putStrLn $ "API Error: " ++ err

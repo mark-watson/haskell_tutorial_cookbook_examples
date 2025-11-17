@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+-- Builds Neo4j Cypher statements (nodes and relationships) from text/meta
 module GenNeo4jCypher
   ( textToCypher
   , neo4j_category_node_defs
@@ -32,6 +33,7 @@ import Summarize (summarize, summarizeS)
 import qualified Data.Map as M
 import Data.Maybe (fromMaybe)
 
+-- Pre-create CategoryType nodes for all known categories
 neo4j_category_node_defs :: [Char]
 neo4j_category_node_defs =
   replace
@@ -54,6 +56,7 @@ repl c = c
 filterChars :: [Char] -> [Char]
 filterChars = filter (\c -> c /= '?' && c /= '=' && c /= '<' && c /= '>')
 
+-- Create a Neo4j node name and Cypher for a source URI (DbPedia or News)
 create_neo4j_node :: [Char] -> ([Char], [Char])
 create_neo4j_node uri =
   let name =
@@ -76,6 +79,7 @@ create_neo4j_link :: [Char] -> [Char] -> [Char] -> [Char]
 create_neo4j_link node1 linkName node2 =
   "CREATE (" ++ node1 ++ ")-[:" ++ linkName ++ "]->(" ++ node2 ++ ")\n"
 
+-- Create a Summary node attached to the source URI
 create_summary_node :: [Char] -> [Char] -> [Char]
 create_summary_node uri summary =
   let name =
@@ -106,6 +110,7 @@ entity_node_helper relation_name node_name entity_list =
   concat [create_contains_entity
            relation_name node_name entity | entity <- entity_list]
 
+-- Read `.txt` + `.meta`, build Cypher to describe entities, categories, and summary
 textToCypher :: FilePath -> [Char] -> IO [Char]
 textToCypher file_path meta_file_path = do
   let prelude_nodes = neo4j_category_node_defs

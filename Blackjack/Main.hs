@@ -1,8 +1,10 @@
+-- Simple CLI Blackjack runner; orchestrates IO and table updates
+-- Prompts for players, shuffles deck, loops reading commands to hit/stay/bet
 module Main where
 
-import Card   -- pure code
-import Table  -- pure code
-import RandomizedList  -- impure code
+import Card   -- pure code (card types + values)
+import Table  -- pure code (game state + rules)
+import RandomizedList  -- impure code (random shuffle)
 
 printTable :: Table -> IO ()
 printTable aTable =
@@ -11,6 +13,8 @@ printTable aTable =
 randomDeck =
   randomizedList orderedCardDeck
 
+-- Main loop: renders the table, shuffles a fresh deck each turn,
+-- and processes user input; returns `IO` to keep side effects explicit
 gameLoop :: Table -> Int -> IO b
 gameLoop aTable numberOfPlayers = do
   printTable aTable

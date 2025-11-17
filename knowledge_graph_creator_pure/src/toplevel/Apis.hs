@@ -1,3 +1,5 @@
+-- High-level API: batch processes a directory of text/meta files
+-- Exposes two entry points to produce RDF triples and Neo4j Cypher.
 module Apis
   ( processFilesToRdf
   , processFilesToNeo4j
@@ -15,6 +17,7 @@ import System.Directory (getDirectoryContents)
 
 import Data.Typeable (typeOf)
 
+-- Given `dirPath` with `.txt` and matching `.meta` files, write all RDF triples to `outputRdfFilePath`.
 processFilesToRdf :: FilePath -> FilePath -> IO ()
 processFilesToRdf dirPath outputRdfFilePath = do
   files <- getDirectoryContents dirPath :: IO [FilePath]
@@ -32,6 +35,7 @@ processFilesToRdf dirPath outputRdfFilePath = do
   putStrLn tripleS
   writeFile outputRdfFilePath tripleS
 
+-- Given `dirPath`, write Neo4j Cypher nodes/relationships to `outputRdfFilePath`.
 processFilesToNeo4j :: FilePath -> FilePath -> IO ()
 processFilesToNeo4j dirPath outputRdfFilePath = do
   files <- getDirectoryContents dirPath :: IO [FilePath]

@@ -1,5 +1,7 @@
 {-# LANGUAGE TemplateHaskell #-}  -- for makeLens
 
+-- Game state and rules for Blackjack; pure transformations on `Table`
+-- Uses lenses to update nested fields concisely
 module Table (Table (..), createNewTable, setPlayerBet, showTable, initialDeal,
               changeChipStack, setCardDeck, dealCards, resetTable, scoreHands,
               dealCardToUser, handOver, setPlayerPasses) where  -- note: export dealCardToUser only for ghci development
@@ -55,6 +57,7 @@ dealCards :: Table -> [Int] -> Table
 dealCards aTable playerIndices =
   last $ scanl dealCardToUser aTable playerIndices
  
+-- Initial deal: reset table with a new shuffled deck, then deal two rounds
 initialDeal cardDeck aTable numberOfPlayers =
   dealCards
     (dealCards (resetTable cardDeck aTable numberOfPlayers) [0 .. numberOfPlayers])
@@ -80,6 +83,8 @@ clipScore aTable playerIndex =
   let s = score aTable playerIndex in
     if s < 22 then s else 0
       
+-- Resolve bets for the hand: compare each player's score against dealer
+-- Busts are treated as 0; updates chip stacks accordingly
 scoreHands aTable =
   let chipStacks2 = _chipStacks aTable
       playerScore = clipScore aTable 0
@@ -140,6 +145,7 @@ dealCardToUser' aTable playerIndex =
       newTable = over cardDeck (\cd -> tail cd) aTable in
     over dealtCards (\a -> a & element playerIndex .~ playerCards) newTable
 
+-- Dealer/AI rule: user always draws; other players draw until score >= 17
 dealCardToUser :: Table -> Int -> Table
 dealCardToUser aTable playerIndex
   | playerIndex == 0  = dealCardToUser' aTable playerIndex -- user

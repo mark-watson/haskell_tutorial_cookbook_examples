@@ -1,3 +1,4 @@
+-- Builds RDF triples from input text and `.meta` data
 module GenTriples
   ( textToTriples
   , category_to_uri_map
@@ -26,12 +27,15 @@ import Summarize (summarize, summarizeS)
 import qualified Data.Map as M
 import Data.Maybe (fromMaybe)
 
+-- Helper to format an RDF triple line: subject predicate object .
 generate_triple :: [Char] -> [Char] -> [Char] -> [Char]
 generate_triple s p o = s ++ "  " ++ p ++ "  " ++ o ++ " .\n"
 
+-- Wrap a string as an RDF literal
 make_literal :: [Char] -> [Char]
 make_literal s = "\"" ++ s ++ "\""
 
+-- Maps classifier category keys to schema URIs used in triples
 category_to_uri_map :: M.Map [Char] [Char]
 category_to_uri_map =
   M.fromList
@@ -87,6 +91,7 @@ uri_from_category :: [Char] -> [Char]
 uri_from_category key =
   fromMaybe ("\"" ++ key ++ "\"") $ M.lookup key category_to_uri_map
 
+-- Read a `.txt` and matching `.meta` file; emit RDF describing entities, categories, and summary.
 textToTriples :: FilePath -> [Char] -> IO [Char]
 textToTriples file_path meta_file_path = do
   word_tokens <- filePathToWordTokens file_path
