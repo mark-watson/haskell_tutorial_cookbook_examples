@@ -27,3 +27,22 @@ executable simple-rdf
   
   -- Enable optimizations
   ghc-options:         -Wall -O2
+
+executable simple-rdf-with-sparql
+  -- The main entry point file
+  main-is:             RDF_simple_SPARQL.hs
+  
+  -- Language extensions used in the code
+  -- (You can also keep them as pragmas in the .hs file)
+  default-extensions:  OverloadedStrings
+                       DeriveGeneric
+
+  -- Dependencies required
+  build-depends:       base >= 4.12 && < 5
+                     , containers
+
+  -- Modern Haskell standard
+  default-language:    Haskell2010
+  
+  -- Enable optimizations
+  ghc-options:         -Wall -O2

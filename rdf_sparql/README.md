@@ -12,6 +12,11 @@ A lightweight, educational Haskell implementation of an RDF graph store and a ba
   - Handles joins automatically via the List Monad.
 - **Zero External Heavy Dependencies**: Only uses `base` and `containers`.
 
+## Two file examples:
+
+- `SimpleRDF.hs` is an in-memory implementation of the RDF store and pattern matching engine.
+- `RDF_simple_SPARQL.hs` is an in-memory implementation of the RDF store and SPARQL engine supporting only simple SPARQL queries.
+
 ## Prerequisites
 
 - [GHC](https://www.haskell.org/ghc/) (The Glasgow Haskell Compiler)
@@ -22,14 +27,19 @@ A lightweight, educational Haskell implementation of an RDF graph store and a ba
 You can run the project directly using Cabal:
 
 ```bash
-cabal run
+cabal run simple-rdf
+
+cabal run simple-rdf-with-sparql
 ```
 
 Or build and run the executable:
 
 ```bash
-cabal build
-cabal run
+cabal build simple-rdf
+cabal run simple-rdf
+
+cabal build simple-rdf-with-sparql
+cabal run simple-rdf-with-sparql
 ```
 
 ## Example Usage
