@@ -2,6 +2,15 @@
 
 ![Haskell Logo](haskell.svg)
 
+# NOTE: the contents of this repo has moved!!
+
+I now maintain a mono-repo for both my book manuscript and the source code examples at:
+
+https://github.com/mark-watson/haskell_book
+
+
+# OLD material kept for archival purposes:
+
 This repo contains the examples for my Haskell book that I try to update with new material about once a year:
 
 [Haskell Tutorial and Cookbook](https://leanpub.com/haskell-cookbook)
